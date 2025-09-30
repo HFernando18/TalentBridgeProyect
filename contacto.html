@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Talent Bridge</title>
+    <meta name="description"
+        content="Ponte en contacto con Talent Bridge. Resolvemos dudas de estudiantes, empresas y universidades en Ecuador.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+
+<body class="font-opensans text-dark bg-white">
+
+    <!-- NAV -->
+    <nav class="bg-white/80 backdrop-blur sticky top-0 z-50 border-b border-slate-100">
+        <div class="mx-auto max-w-7xl px-6 lg:px-10 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="img/logo/Talent_Bridge_FH_Final.svg" alt="Talent Bridge" class="h-12">
+                <span class="font-poppins font-semibold text-primary hidden sm:inline">Talent Bridge</span>
+            </a>
+            <div class="hidden sm:flex items-center gap-6">
+                <a class="text-primary font-poppins hover:text-secondary transition" href="empresas.html">Empresas</a>
+                <a class="text-primary font-poppins hover:text-secondary transition"
+                    href="universidades.html">Universidades</a>
+                <a class="text-primary font-poppins hover:text-secondary transition"
+                    href="estudiantes.html">Estudiantes</a>
+                <a class="text-primary font-poppins hover:text-secondary transition" href="planes.html">Planes</a>
+                <a class="bg-secondary text-primary font-poppins font-semibold py-2 px-4 rounded-lg hover:opacity-90 transition"
+                    href="login.html">Iniciar sesión</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="bg-gradient-to-r from-primary to-secondary text-white py-20 text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('img/bg/bg3.png')] bg-cover bg-center opacity-90"></div>
+        <div class="relative z-10 max-w-3xl mx-auto">
+            <h1 class="font-montserrat text-4xl md:text-5xl font-extrabold drop-shadow-lg">
+                Contáctanos
+            </h1>
+            <p class="mt-4 text-lg opacity-90">
+                ¿Dudas, sugerencias o soporte? Estamos aquí para ayudarte 🚀
+            </p>
+        </div>
+    </header>
+
+    <!-- CONTACTO -->
+    <main class="max-w-7xl mx-auto px-6 lg:px-10 py-16 grid lg:grid-cols-2 gap-12 items-center">
+
+        <!-- FORMULARIO -->
+        <section>
+            <h2 class="font-montserrat text-3xl font-extrabold text-primary mb-6">Escríbenos</h2>
+            <form action="#" method="POST"
+                class="space-y-6 bg-white p-8 rounded-xl shadow-soft border border-slate-200">
+                <div>
+                    <label for="nombre" class="block text-sm font-poppins text-dark mb-1">Nombre completo</label>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre"
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-poppins text-dark mb-1">Correo electrónico</label>
+                    <input type="email" id="email" name="email" required placeholder="tu@correo.com"
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary">
+                </div>
+                <div>
+                    <label for="mensaje" class="block text-sm font-poppins text-dark mb-1">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" rows="4" required placeholder="Escribe tu mensaje aquí..."
+                        class="w-full rounded-lg border border-slate-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-secondary"></textarea>
+                </div>
+                <button type="submit"
+                    class="w-full bg-primary text-white font-poppins font-semibold px-6 py-3 rounded-lg shadow-soft hover:bg-opacity-90">
+                    Enviar mensaje
+                </button>
+            </form>
+        </section>
+
+        <!-- INFO DE CONTACTO -->
+        <section class="space-y-8">
+            <div>
+                <h2 class="font-montserrat text-3xl font-extrabold text-primary mb-4">Información</h2>
+                <p class="text-medium">Estamos disponibles para resolver tus dudas sobre pasantías, convenios y soporte
+                    técnico.</p>
+            </div>
+            <div class="space-y-4">
+                <p class="flex items-center gap-3">
+                    📍 <span>Guayaquil, Ecuador</span>
+                </p>
+                <p class="flex items-center gap-3">
+                    📧 <a href="mailto:soporte@talentbridge.com.ec"
+                        class="hover:text-secondary">soporte@talentbridge.com.ec</a>
+                </p>
+                <p class="flex items-center gap-3">
+                    📞 <a href="tel:+593999999999" class="hover:text-secondary">+593 99 999 9999</a>
+                </p>
+            </div>
+            <div>
+                <h3 class="font-poppins text-lg text-primary mb-2">Síguenos</h3>
+                <div class="flex gap-6 text-2xl text-primary">
+                    <a href="https://www.linkedin.com/company/talentbridge" target="_blank" aria-label="LinkedIn"
+                        class="hover:text-secondary transition">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://www.facebook.com/talentbridge" target="_blank" aria-label="Facebook"
+                        class="hover:text-secondary transition">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://twitter.com/talentbridge" target="_blank" aria-label="Twitter"
+                        class="hover:text-secondary transition">
+                        <i class="fab fa-twitterç"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- MAPA -->
+    <section class="w-full h-80 mt-12">
+        <iframe class="w-full h-full border-0 rounded-xl shadow-soft"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d997.752509999812!2d-79.8891!3d-2.1709!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902d6d88f0f9e6df%3A0x1234567890abcdef!2sGuayaquil%20Ecuador!5e0!3m2!1ses!2sec!4v0000000000"
+            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#1f2937] text-white py-12 mt-12">
+        <div class="mx-auto max-w-7xl px-6 lg:px-10 text-center">
+            <img src="img/logo/Talent_Bridge_FH_Final_Alterno.svg" alt="Talent Bridge"
+                class="h-16 mx-auto opacity-80" />
+            <nav class="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 font-poppins">
+                <a href="index.html#solucion" class="hover:text-secondary">Solución</a>
+                <a href="index.html#como-funciona" class="hover:text-secondary">Cómo funciona</a>
+                <a href="planes.html" class="hover:text-secondary">Planes</a>
+                <a href="index.html#testimonios" class="hover:text-secondary">Testimonios</a>
+                <a href="contacto.html" class="hover:text-secondary">Contacto</a>
+            </nav>
+            <p class="mt-6 text-sm text-white/70">© 2025 Talent Bridge. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

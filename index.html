@@ -25,70 +25,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@500;600;700&family=Open+Sans:wght@400;500&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
 
-    <style>
-        :root {
-            --color-primary: #00364d;
-            /* Azul oscuro */
-            --color-secondary: #e9a50e;
-            /* Amarillo dorado */
-            --color-white: #ffffff;
-            --color-light-gray: #F4F4F4;
-            --color-dark-gray: #333;
-            --color-medium-gray: #6B7280;
-        }
-
-        .font-montserrat {
-            font-family: 'Montserrat', sans-serif
-        }
-
-        .font-poppins {
-            font-family: 'Poppins', sans-serif
-        }
-
-        .font-opensans {
-            font-family: 'Open Sans', sans-serif
-        }
-
-        .bg-primary {
-            background-color: var(--color-primary)
-        }
-
-        .text-primary {
-            color: var(--color-primary)
-        }
-
-        .bg-secondary {
-            background-color: var(--color-secondary)
-        }
-
-        .text-secondary {
-            color: var(--color-secondary)
-        }
-
-        .text-dark {
-            color: var(--color-dark-gray)
-        }
-
-        .text-medium {
-            color: var(--color-medium-gray)
-        }
-
-        .shadow-soft {
-            box-shadow: 0 10px 30px rgba(0, 0, 0, .08)
-        }
-
-        .border-secondary {
-            border-color: var(--color-secondary);
-        }
-
-        .blur-content {
-            filter: blur(5px);
-            transition: filter 0.3s ease;
-        }
-    </style>
-
-    <!-- JSON-LD: Organization + WebSite + potentialSearchAction -->
+    <!-- JSON-LD: Organization + WebSite + potentialSearchAction --> <!--Cosas que se investigo-->
     <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -116,7 +55,7 @@
 
 <body class="font-opensans text-dark bg-white">
     <!-- NAV -->
-    <nav class="bg-white/90 backdrop-blur sticky top-0 z-50 border-b border-slate-100">
+    <nav class="bg-white/80 backdrop-blur sticky top-0 z-50 border-b border-slate-100">
         <div class="mx-auto max-w-7xl px-6 lg:px-10 h-16 flex items-center justify-between">
 
             <!-- Logo -->
@@ -176,42 +115,13 @@
         </div>
     </div>
 
-    <!-- Script NAV -->
-    <script>
-        const btnMenu = document.getElementById('btnMenu');
-        const btnClose = document.getElementById('btnClose');
-        const menuMobile = document.getElementById('menuMobile');
-        const overlay = document.getElementById('overlay');
-
-    function openMenu() {
-        menuMobile.classList.remove("translate-x-full");
-        overlay.classList.remove("hidden");
-        document.body.classList.add("overflow-hidden");
-        document.getElementById("pageContent").classList.add("blur-content");
-        setTimeout(() => overlay.classList.remove("opacity-0"), 10);
-        btnMenu.setAttribute("aria-expanded", "true");
-    }
-
-    function closeMenu() {
-        menuMobile.classList.add("translate-x-full");
-        overlay.classList.add("opacity-0");
-        document.body.classList.remove("overflow-hidden");
-        document.getElementById("pageContent").classList.remove("blur-content");
-        setTimeout(() => overlay.classList.add("hidden"), 300);
-        btnMenu.setAttribute("aria-expanded", "false");
-    }
-        btnMenu.addEventListener('click', openMenu);
-        btnClose.addEventListener('click', closeMenu);
-        overlay.addEventListener('click', closeMenu);
-    </script>
-
     <main id="pageContent">
         <!-- HERO -->
         <header id="contenido" class="bg-primary text-white pt-20 pb-14 relative overflow-hidden">
             <div class="mx-auto max-w-7xl px-6 lg:px-10 grid md:grid-cols-2 gap-10 items-center">
                 <div>
                     <h1 class="font-montserrat text-4xl md:text-5xl font-extrabold leading-tight">
-                        Pasantías seguras y <span class="text-secondary">prácticas preprofesionales</span> en Ecuador
+                        Pasantías seguras y <span class="text-secondary">prácticas preprofesionales</span> en Guayaquil, Ecuador
                     </h1>
                     <p class="mt-4 text-lg opacity-90">La plataforma de pasantías que conecta <strong>estudiantes
                             universitarios</strong> con <strong>empresas verificadas</strong> y
@@ -236,7 +146,7 @@
                         class="max-w-full h-auto rounded-lg shadow-soft" loading="lazy" />
                 </div>
             </div>
-            <!-- MÉTRICAS (Hero) -->
+            <!-- MÉTRICAS (del Hero) -->
             <div class="mt-10 md:mt-12">
                 <dl class="grid grid-cols-2 md:grid-cols-4 gap-6">
                     <div class="bg-white/10 backdrop-blur rounded-xl p-5 text-center shadow-soft">
@@ -507,38 +417,6 @@
             </div>
         </section>
 
-        <style>
-            /* Ocultar scroll horizontal */
-            .no-scrollbar::-webkit-scrollbar {
-                display: none;
-            }
-
-            .no-scrollbar {
-                -ms-overflow-style: none;
-                /* IE y Edge */
-                scrollbar-width: none;
-                /* Firefox */
-            }
-        </style>
-
-        <script>
-            // Autoplay del carrusel
-            const carousel = document.getElementById("carousel");
-            let scrollAmount = 0;
-
-            function autoScroll() {
-                const itemWidth = carousel.querySelector("figure").offsetWidth + 24; // ancho + gap
-                if (scrollAmount >= carousel.scrollWidth - carousel.clientWidth) {
-                    scrollAmount = 0; // reinicia al inicio
-                } else {
-                    scrollAmount += itemWidth;
-                }
-                carousel.scrollTo({ left: scrollAmount, behavior: "smooth" });
-            }
-
-            setInterval(autoScroll, 4000); // cada 4 segundos
-        </script>
-
         <!-- FAQS -->
         <section id="faqs" class="py-16">
             <div class="mx-auto max-w-4xl px-6 lg:px-10">
@@ -637,49 +515,7 @@
         </footer>
 
 
-        <script>
-            // Contadores animados con IntersectionObserver
-            const counters = document.querySelectorAll('.counter');
-            if (counters.length) {
-                const animate = el => {
-                    const target = Number(el.getAttribute('data-target')) || 0;
-                    let current = 0;
-                    const step = Math.max(1, Math.floor(target / 120));
-                    const tick = () => {
-                        current += step;
-                        if (current >= target) { el.textContent = target.toLocaleString('es-EC'); return; }
-                        el.textContent = current.toLocaleString('es-EC');
-                        requestAnimationFrame(tick);
-                    };
-                    requestAnimationFrame(tick);
-                };
-                const io = new IntersectionObserver((entries, obs) => {
-                    entries.forEach(e => {
-                        if (e.isIntersecting) { animate(e.target); obs.unobserve(e.target); }
-                    });
-                }, { threshold: 0.4 });
-                counters.forEach(c => io.observe(c));
-            }
-
-            // Newsletter: validación básica
-            const form = document.getElementById('form-news');
-            const email = document.getElementById('email');
-            const msg = document.getElementById('msg-news');
-            form?.addEventListener('submit', (ev) => {
-                ev.preventDefault();
-                msg.textContent = '';
-                if (!email.checkValidity()) {
-                    msg.textContent = 'Por favor, ingresa un correo válido.';
-                    msg.className = 'text-red-600';
-                    email.focus();
-                    return;
-                }
-                // Aquí puedes hacer fetch a tu endpoint /newsletter (POST)
-                msg.textContent = '¡Listo! Revisa tu bandeja para descargar la guía.';
-                msg.className = 'text-green-700';
-                form.reset();
-            });
-        </script>
+        <script src="JS/javascript.js"></script>
     </main>
 </body>
 

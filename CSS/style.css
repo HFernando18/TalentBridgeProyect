@@ -1,0 +1,71 @@
+        :root {
+            --color-primary: #00364d;
+            /* Azul oscuro */
+            --color-secondary: #e9a50e;
+            /* Amarillo dorado */
+            --color-white: #ffffff;
+            --color-light-gray: #F4F4F4;
+            --color-dark-gray: #333;
+            --color-medium-gray: #6B7280;
+        }
+
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif
+        }
+
+        .font-poppins {
+            font-family: 'Poppins', sans-serif
+        }
+
+        .font-opensans {
+            font-family: 'Open Sans', sans-serif
+        }
+
+        .bg-primary {
+            background-color: var(--color-primary)
+        }
+
+        .text-primary {
+            color: var(--color-primary)
+        }
+
+        .bg-secondary {
+            background-color: var(--color-secondary)
+        }
+
+        .text-secondary {
+            color: var(--color-secondary)
+        }
+
+        .text-dark {
+            color: var(--color-dark-gray)
+        }
+
+        .text-medium {
+            color: var(--color-medium-gray)
+        }
+
+        .shadow-soft {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, .08)
+        }
+
+        .border-secondary {
+            border-color: var(--color-secondary);
+        }
+
+        .blur-content {
+            filter: blur(5px);
+            transition: filter 0.3s ease;
+        }
+
+            /* Ocultar scroll horizontal */
+            .no-scrollbar::-webkit-scrollbar {
+                display: none;
+            }
+
+            .no-scrollbar {
+                -ms-overflow-style: none;
+                /* IE y Edge */
+                scrollbar-width: none;
+                /* Firefox */
+            }
