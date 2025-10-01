@@ -29,28 +29,28 @@
 
     <!-- JSON-LD: Organization + WebSite + potentialSearchAction --> <!--Cosas que se investigo-->
     <script type="application/ld+json">
-  {
+        {
     "@context":"https://schema.org",
     "@type":"Organization",
     "name":"Talent Bridge",
     "url":"https://talentbridge.example",
     "logo":"https://talentbridge.example/img/Talent_Bridge_FH_Final.svg",
     "sameAs":["https://www.linkedin.com/company/talentbridge"]
-  }
-  </script>
+}
+</script>
     <script type="application/ld+json">
-  {
+        {
     "@context":"https://schema.org",
     "@type":"WebSite",
     "url":"https://talentbridge.com.ec",
     "name":"Talent Bridge",
     "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://talentbridge.example/buscar?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    }
-  }
-  </script>
+    "@type": "SearchAction",
+    "target": "https://talentbridge.example/buscar?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+}
+}
+</script>
 </head>
 
 <body class="font-opensans text-dark bg-white">
@@ -121,12 +121,14 @@
             <div class="mx-auto max-w-7xl px-6 lg:px-10 grid md:grid-cols-2 gap-10 items-center">
                 <div>
                     <h1 class="font-montserrat text-4xl md:text-5xl font-extrabold leading-tight">
-                        Pasantías seguras y <span class="text-secondary">prácticas preprofesionales</span> en Guayaquil, Ecuador
+                        Pasantías seguras y <span class="text-secondary">prácticas preprofesionales</span> en Guayaquil,
+                        Ecuador
                     </h1>
                     <p class="mt-4 text-lg opacity-90">La plataforma de pasantías que conecta <strong>estudiantes
                             universitarios</strong> con <strong>empresas verificadas</strong> y
                         <strong>universidades</strong> para una experiencia confiable, con <strong>certificación
-                            digital</strong> y <strong>seguimiento</strong>.</p>
+                            digital</strong> y <strong>seguimiento</strong>.
+                    </p>
                     <div class="mt-6 flex flex-col sm:flex-row gap-4">
                         <a href="#cta"
                             class="bg-secondary text-primary font-poppins font-semibold py-3 px-6 rounded-lg shadow-soft hover:opacity-90">Explorar
@@ -150,24 +152,24 @@
             <div class="mt-10 md:mt-12">
                 <dl class="grid grid-cols-2 md:grid-cols-4 gap-6">
                     <div class="bg-white/10 backdrop-blur rounded-xl p-5 text-center shadow-soft">
-                        <dt class="text-white/80 text-sm">Estudiantes colocados</dt>
-                        <dd class="mt-1 text-3xl font-montserrat font-extrabold text-secondary"><span class="counter"
-                                data-target="1200">0</span>+</dd>
+                        <dt class="text-white/80 text-sm">Pasantes ubicados</dt>
+                        <dd class="mt-1 text-3xl font-montserrat font-extrabold text-secondary">+<span class="counter"
+                                data-target="1200">0</span></dd>
                     </div>
                     <div class="bg-white/10 backdrop-blur rounded-xl p-5 text-center shadow-soft">
                         <dt class="text-white/80 text-sm">Empresas verificadas</dt>
-                        <dd class="mt-1 text-3xl font-montserrat font-extrabold text-secondary"><span class="counter"
-                                data-target="350">0</span>+</dd>
+                        <dd class="mt-1 text-3xl font-montserrat font-extrabold text-secondary">+<span class="counter"
+                                data-target="150">0</span></dd>
                     </div>
                     <div class="bg-white/10 backdrop-blur rounded-xl p-5 text-center shadow-soft">
                         <dt class="text-white/80 text-sm">Universidades aliadas</dt>
-                        <dd class="mt-1 text-3xl font-montserrat font-extrabold text-secondary"><span class="counter"
-                                data-target="48">0</span>+</dd>
+                        <dd class="mt-1 text-3xl font-montserrat font-extrabold text-secondary">+<span class="counter"
+                                data-target="15">0</span></dd>
                     </div>
                     <div class="bg-white/10 backdrop-blur rounded-xl p-5 text-center shadow-soft">
                         <dt class="text-white/80 text-sm">Vacantes activas</dt>
-                        <dd class="mt-1 text-3xl font-montserrat font-extrabold text-secondary"><span class="counter"
-                                data-target="780">0</span>+</dd>
+                        <dd class="mt-1 text-3xl font-montserrat font-extrabold text-secondary">+<span class="counter"
+                                data-target="700">0</span></dd>
                     </div>
                 </dl>
             </div>
@@ -313,14 +315,16 @@
                 <h2 class="font-montserrat text-3xl md:text-4xl font-extrabold">Planes para estudiantes y empresas</h2>
                 <p class="mt-3 opacity-90 max-w-3xl mx-auto">Elige el plan que mejor se adapte a tu objetivo:
                     <strong>gestión de pasantías</strong> para universidades y <strong>panel para empresas</strong> con
-                    métricas e informes.</p>
+                    métricas e informes.
+                </p>
 
                 <div class="mt-12 grid lg:grid-cols-2 gap-8 items-stretch">
                     <div
                         class="bg-white/90 text-primary p-8 rounded-xl shadow-soft flex flex-col border-t-8 border-secondary">
                         <h3 class="font-montserrat text-2xl font-extrabold">Estudiantes: Acceso gratuito</h3>
                         <p class="mt-2 text-dark">Encuentra <strong>prácticas preprofesionales</strong> reales en
-                            <strong>Ecuador</strong> y potencia tu perfil.</p>
+                            <strong>Ecuador</strong> y potencia tu perfil.
+                        </p>
                         <ul class="mt-6 text-left space-y-3 text-dark">
                             <li>Acceso a ofertas verificadas</li>
                             <li>Perfil profesional y alertas</li>
@@ -345,6 +349,69 @@
                 </div>
             </div>
         </section>
+
+        <!-- Separador curvo entre Planes y Universidades -->
+        <div class="relative">
+            <svg class="absolute top-0 left-0 w-full h-20 text-white" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <path fill="currentColor" fill-opacity="1"
+                    d="M0,224L48,202.7C96,181,192,139,288,117.3C384,96,480,96,576,122.7C672,149,768,203,864,229.3C960,256,1056,256,1152,224C1248,192,1344,128,1392,96L1440,64L1440,0L0,0Z">
+                </path>
+            </svg>
+        </div>
+
+        <!-- UNIVERSIDADES -->
+        <section id="universidades" class="bg-secondary py-20 text-center bg-cover bg-no-repeat bg-fixed"
+            style="background-image: linear-gradient(rgba(233, 165, 14, 0.75), rgba(233, 165, 14, 0.50)), url('img/bg/bg5.jpg');">
+            <div class="mx-auto max-w-7xl px-6 lg:px-10 text-center">
+                <h2 class="font-montserrat text-3xl md:text-4xl font-extrabold text-primary">
+                    Planes para Universidades
+                </h2>
+                <p class="mt-3 text-medium max-w-3xl mx-auto text-white/90">
+                    Con Talent Bridge, las universidades pueden <strong>gestionar pasantías</strong>,
+                    dar seguimiento en tiempo real y validar prácticas con <strong>certificación digital</strong>.
+                </p>
+                <div class="mt-12 grid md:grid-cols-2 gap-8 items-stretch">
+
+                    <!-- Opción de prueba gratuita -->
+                    <div
+                        class="bg-white/95 text-primary p-8 rounded-xl shadow-soft border-t-8 border-secondary flex flex-col">
+                        <h3 class="font-montserrat text-2xl font-extrabold">Periodo de prueba</h3>
+                        <p class="mt-2 text-dark">Explora todas las funciones de Talent Bridge durante
+                            <strong>30 días</strong> sin compromiso.
+                        </p>
+                        <ul class="mt-6 text-left space-y-3 text-dark">
+                            <li>Acceso al panel universitario</li>
+                            <li>Seguimiento de estudiantes en tiempo real</li>
+                            <li>Certificación digital incluida</li>
+                        </ul>
+                        <a href="#"
+                            class="mt-6 bg-secondary text-primary py-3 rounded-lg font-poppins font-semibold hover:bg-opacity-90">
+                            Probar gratis
+                        </a>
+                    </div>
+
+                    <!-- Plan institucional -->
+                    <div
+                        class="bg-white/95 text-primary p-8 rounded-xl shadow-soft border-t-8 border-secondary flex flex-col">
+                        <h3 class="font-montserrat text-2xl font-extrabold">Plan Institucional</h3>
+                        <p class="mt-2 text-dark">Optimiza la gestión de prácticas preprofesionales con un
+                            <strong>convenio activo</strong> universidad-empresa.
+                        </p>
+                        <ul class="mt-6 text-left space-y-3 text-dark">
+                            <li>Dashboard completo de estudiantes y empresas</li>
+                            <li>Reportes y métricas de desempeño</li>
+                            <li>Soporte prioritario</li>
+                        </ul>
+                        <a href="#"
+                            class="mt-6 bg-primary text-white py-3 rounded-lg font-poppins font-semibold hover:bg-opacity-90">
+                            Solicitar convenio
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
 
         <!-- TESTIMONIOS (CARRUSEL AUTOMÁTICO) -->
         <section id="testimonios" class="py-16 bg-slate-50">
@@ -417,6 +484,159 @@
             </div>
         </section>
 
+        <!-- GALERÍA DE CERTIFICACIONES -->
+        <section id="galeria" class="py-10 bg-slate-50">
+            <div class="mx-auto max-w-7xl px-6 lg:px-10 text-center">
+                <h2 class="font-montserrat text-3xl md:text-4xl font-extrabold text-primary">
+                    Certificaciones reales de Talent Bridge
+                </h2>
+                <p class="mt-3 text-medium text-dark max-w-3xl mx-auto">
+                    Más que palabras: nuestros estudiantes ya recibieron su
+                    <strong>certificación digital</strong> que valida sus pasantías seguras.
+                    Mira algunos ejemplos: 🎓
+                </p>
+
+                <!-- Carrusel -->
+                <div class="relative mt-12">
+                    <!-- Botón Izquierda (oculto en móviles) -->
+                    <button id="prevBtn"
+                        class="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 bg-primary/80 text-white p-3 rounded-full shadow hover:bg-primary transition z-10">
+                        &#10094;
+                    </button>
+
+                    <!-- Contenedor del carrusel -->
+                    <div id="certCarousel"
+                        class="flex overflow-x-auto snap-x snap-mandatory gap-6 scroll-smooth pb-6 no-scrollbar">
+
+                        <!-- Item 1 -->
+                        <div
+                            class="relative group overflow-hidden rounded-xl shadow-soft snap-center min-w-[280px] max-w-sm flex-shrink-0">
+                            <img src="img/gallery/gMG.png"
+                                alt="Estudiante con certificación"
+                                class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
+                            <div
+                                class="absolute inset-0 bg-primary/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                                <p class="text-white font-poppins font-semibold">María G. – Marketing</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div
+                            class="relative group overflow-hidden rounded-xl shadow-soft snap-center min-w-[280px] max-w-sm flex-shrink-0">
+                            <img src="img/gallery/gJM.png" alt="Estudiante con certificación"
+                                class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
+                            <div
+                                class="absolute inset-0 bg-primary/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                                <p class="text-white font-poppins font-semibold">José M. – Ingeniería</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div
+                            class="relative group overflow-hidden rounded-xl shadow-soft snap-center min-w-[280px] max-w-sm flex-shrink-0">
+                            <img src="img/gallery/gEW.png"
+                                alt="Estudiante con certificación"
+                                class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
+                            <div
+                                class="absolute inset-0 bg-primary/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                                <p class="text-white font-poppins font-semibold">Lucía F. – Derecho</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 4 -->
+                        <div
+                            class="relative group overflow-hidden rounded-xl shadow-soft snap-center min-w-[280px] max-w-sm flex-shrink-0">
+                            <img src="img/gallery/gCS.png" alt="Estudiante con certificación"
+                                class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
+                            <div
+                                class="absolute inset-0 bg-primary/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                                <p class="text-white font-poppins font-semibold">Carlos S. – Sistemas</p>
+                            </div>
+                        </div>
+
+                        <!-- Item 5 -->
+                        <div
+                            class="relative group overflow-hidden rounded-xl shadow-soft snap-center min-w-[280px] max-w-sm flex-shrink-0">
+                            <img src="img/gallery/gAP.png"
+                                alt="Estudiante con certificación"
+                                class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
+                            <div
+                                class="absolute inset-0 bg-primary/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                                <p class="text-white font-poppins font-semibold">Andrea P. – Administración</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Botón Derecha (oculto en móviles) -->
+                    <button id="nextBtn"
+                        class="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 bg-primary/80 text-white p-3 rounded-full shadow hover:bg-primary transition z-10">
+                        &#10095;
+                    </button>
+                </div>
+
+                <!-- Indicadores -->
+                <div id="carouselIndicators" class="flex justify-center gap-3 mt-6">
+                    <span class="w-3 h-3 rounded-full bg-primary"></span>
+                    <span class="w-3 h-3 rounded-full bg-gray-300"></span>
+                    <span class="w-3 h-3 rounded-full bg-gray-300"></span>
+                    <span class="w-3 h-3 rounded-full bg-gray-300"></span>
+                    <span class="w-3 h-3 rounded-full bg-gray-300"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Script auto-scroll + botones + indicadores -->
+        <script>
+            const certCarousel = document.getElementById("certCarousel");
+            const prevBtn = document.getElementById("prevBtn");
+            const nextBtn = document.getElementById("nextBtn");
+            const indicators = document.querySelectorAll("#carouselIndicators span");
+
+            let currentIndex = 0;
+            const totalSlides = indicators.length;
+
+            function updateIndicators(index) {
+                indicators.forEach((dot, i) => {
+                    dot.classList.toggle("bg-primary", i === index);
+                    dot.classList.toggle("bg-gray-300", i !== index);
+                });
+            }
+
+            function scrollToSlide(index) {
+                const slideWidth = certCarousel.querySelector("div").offsetWidth + 24; // ancho + gap
+                certCarousel.scrollTo({ left: slideWidth * index, behavior: "smooth" });
+                currentIndex = index;
+                updateIndicators(index);
+            }
+
+            function scrollNext() {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                scrollToSlide(currentIndex);
+            }
+
+            function scrollPrev() {
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                scrollToSlide(currentIndex);
+            }
+
+            if (nextBtn && prevBtn) {
+                nextBtn.addEventListener("click", scrollNext);
+                prevBtn.addEventListener("click", scrollPrev);
+            }
+
+            // Auto-scroll cada 3s
+            setInterval(scrollNext, 3000);
+
+            // Clic en indicadores
+            indicators.forEach((dot, i) => {
+                dot.addEventListener("click", () => scrollToSlide(i));
+            });
+
+            updateIndicators(currentIndex);
+        </script>
+
+
         <!-- FAQS -->
         <section id="faqs" class="py-16">
             <div class="mx-auto max-w-4xl px-6 lg:px-10">
@@ -439,7 +659,8 @@
                         <summary class="font-poppins text-lg text-primary cursor-pointer">¿Tiene costo para estudiantes
                             universitarios?</summary>
                         <p class="mt-3 text-medium">El acceso básico es gratuito. Ofrecemos herramientas premium para
-                            <strong>panel para empresas</strong> y universidades.</p>
+                            <strong>panel para empresas</strong> y universidades.
+                        </p>
                     </details>
                     <details class="bg-white p-6 rounded-xl shadow-soft group">
                         <summary class="font-poppins text-lg text-primary cursor-pointer">¿Cómo se gestiona la
@@ -473,7 +694,8 @@
                     Consigue tu primera práctica preprofesional</h2>
                 <p class="mt-3 text-medium text-center">Recibe en tu correo una guía paso a paso para postular a
                     <strong>pasantías seguras</strong> y optimizar tu perfil. Sin spam, puedes darte de baja cuando
-                    quieras.</p>
+                    quieras.
+                </p>
 
                 <form id="form-news" class="mt-8 grid gap-4 sm:grid-cols-[1fr_auto]" novalidate>
                     <label class="sr-only" for="email">Correo electrónico</label>
@@ -507,7 +729,8 @@
                 </nav>
                 <p class="mt-6 text-sm text-white/70">Misión: acceso seguro a <strong>prácticas
                         preprofesionales</strong> conectando <strong>estudiantes universitarios</strong> con
-                    <strong>empresas verificadas</strong>.</p>
+                    <strong>empresas verificadas</strong>.
+                </p>
                 <p class="text-sm text-white/70">Visión: ser la principal <strong>plataforma de pasantías</strong>
                     seguras en Latinoamérica.</p>
                 <p class="mt-4 text-xs text-white/50">© 2025 Talent Bridge. Todos los derechos reservados.</p>
