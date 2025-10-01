@@ -58,14 +58,41 @@
             transition: filter 0.3s ease;
         }
 
-            /* Ocultar scroll horizontal */
-            .no-scrollbar::-webkit-scrollbar {
-                display: none;
-            }
+        /* Sombras oscuras (para textos claros) */
+        .text-shadow-sm {
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+        }
 
-            .no-scrollbar {
-                -ms-overflow-style: none;
-                /* IE y Edge */
-                scrollbar-width: none;
-                /* Firefox */
-            }
+        .text-shadow-md {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .text-shadow-lg {
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Sombras claras (para textos oscuros) */
+        .text-shadow-white-sm {
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.4);
+        }
+
+        .text-shadow-white-md {
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .text-shadow-white-lg {
+            text-shadow: 3px 3px 6px rgba(255, 255, 255, 0.6);
+        }
+
+
+        /* Ocultar scroll horizontal */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE y Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }

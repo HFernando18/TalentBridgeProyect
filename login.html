@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Iniciar sesión | Talent Bridge</title>
+    <meta name="description"
+        content="Inicia sesión en Talent Bridge para acceder a pasantías seguras y certificación digital.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@500;600;700&family=Open+Sans:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body class="font-opensans bg-slate-50">
+
+    <!-- NAV -->
+    <nav class="bg-white/80 backdrop-blur sticky top-0 z-50 border-b border-slate-100">
+        <div class="mx-auto max-w-7xl px-6 lg:px-10 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="img/logo/Talent_Bridge_FH_Final.svg" alt="Talent Bridge" class="h-12" loading="lazy" />
+                <span class="font-poppins font-semibold text-primary hidden sm:inline">Talent Bridge</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- LOGIN FORM -->
+    <main class="flex items-center justify-center min-h-screen px-6 py-16 bg-gradient-to-r from-primary to-secondary">
+        <div class="bg-white/95 backdrop-blur-sm rounded-xl shadow-lg w-full max-w-md p-10 space-y-6">
+
+            <!-- Logo -->
+            <div class="text-center">
+                <img src="img/logo/user.svg" alt="logo de usuario"
+                    class="h-16 mx-auto opacity-90" />
+                <h1 class="mt-4 text-2xl font-montserrat font-extrabold text-primary">Inicia sesión</h1>
+                <p class="text-sm text-gray-600">Accede a pasantías seguras y certificación digital</p>
+            </div>
+
+            <!-- Formulario -->
+            <form action="#" method="POST" class="space-y-5">
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+                    <input id="email" type="email" name="email" required placeholder="tu@correo.com"
+                        class="mt-1 w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-secondary">
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+                    <input id="password" type="password" name="password" required placeholder="********"
+                        class="mt-1 w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-secondary">
+                </div>
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center gap-2 text-sm">
+                        <input type="checkbox" class="h-4 w-4 text-secondary border-gray-300 rounded"> Recordarme
+                    </label>
+                    <a href="#" class="text-sm text-primary hover:text-secondary">¿Olvidaste tu contraseña?</a>
+                </div>
+                <button type="submit"
+                    class="w-full bg-primary text-white font-poppins font-semibold py-3 rounded-lg hover:bg-opacity-90 transition">
+                    Ingresar
+                </button>
+            </form>
+
+            <!-- Divider -->
+            <div class="flex items-center gap-3">
+                <hr class="flex-1 border-gray-300">
+                <span class="text-sm text-gray-500">o continúa con</span>
+                <hr class="flex-1 border-gray-300">
+            </div>
+
+            <!-- Login social -->
+            <div class="grid gap-3">
+                <button
+                    class="flex items-center justify-center gap-3 w-full bg-white border border-gray-300 rounded-lg py-3 shadow hover:bg-gray-50 transition">
+                    <img src="img/logo/Google.svg" alt="Google" class="h-5 w-5">
+                    <span class="text-gray-700 font-medium">Iniciar sesión con Google</span>
+                </button>
+                <button
+                    class="flex items-center justify-center gap-3 w-full bg-white border border-gray-300 rounded-lg py-3 shadow hover:bg-gray-50 transition">
+                    <img src="img/logo/Microsoft.svg" alt="Microsoft" class="h-5 w-5">
+                    <span class="text-gray-700 font-medium">Iniciar sesión con Microsoft</span>
+                </button>
+            </div>
+
+            <!-- Registro -->
+            <p class="text-center text-sm text-gray-600">
+                ¿No tienes cuenta?
+                <a href="register.html" class="text-primary font-semibold hover:text-secondary">Regístrate gratis</a>
+            </p>
+        </div>
+    </main>
+
+</body>
+
+</html>

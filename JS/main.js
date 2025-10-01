@@ -85,3 +85,110 @@
                 msg.className = 'text-green-700';
                 form.reset();
             });
+
+
+        //<!-- Script auto-scroll + botones + indicadores -->
+
+    const certCarousel = document.getElementById("certCarousel");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const indicators = document.querySelectorAll("#carouselIndicators span");
+
+    let currentIndex = 0;
+    const totalSlides = indicators.length;
+
+    let autoScrollInterval;
+    let isUserInteracting = false;
+
+    function updateIndicators(index) {
+        indicators.forEach((dot, i) => {
+            dot.classList.toggle("bg-primary", i === index);
+            dot.classList.toggle("bg-gray-300", i !== index);
+        });
+    }
+
+    function scrollToSlide(index) {
+        const slideWidth = certCarousel.querySelector("div").offsetWidth + 24; // ancho + gap
+        certCarousel.scrollTo({ left: slideWidth * index, behavior: "smooth" });
+        currentIndex = index;
+        updateIndicators(index);
+    }
+
+    function scrollNext() {
+        if (!isUserInteracting) {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            scrollToSlide(currentIndex);
+        }
+    }
+
+    function scrollPrev() {
+        if (!isUserInteracting) {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            scrollToSlide(currentIndex);
+        }
+    }
+
+    function startAutoScroll() {
+        stopAutoScroll(); // evita duplicados
+        autoScrollInterval = setInterval(scrollNext, 3000);
+    }
+
+    function stopAutoScroll() {
+        clearInterval(autoScrollInterval);
+    }
+
+    // Eventos botones
+    if (nextBtn && prevBtn) {
+        nextBtn.addEventListener("click", () => {
+            scrollNext();
+            restartAutoScroll();
+        });
+        prevBtn.addEventListener("click", () => {
+            scrollPrev();
+            restartAutoScroll();
+        });
+    }
+
+    // Eventos de interacción usuario (desktop + mobile)
+    certCarousel.addEventListener("mousedown", () => {
+        isUserInteracting = true;
+        stopAutoScroll();
+    });
+    certCarousel.addEventListener("touchstart", () => {
+        isUserInteracting = true;
+        stopAutoScroll();
+    });
+
+    certCarousel.addEventListener("mouseup", () => {
+        isUserInteracting = false;
+        startAutoScroll();
+    });
+    certCarousel.addEventListener("touchend", () => {
+        isUserInteracting = false;
+        startAutoScroll();
+    });
+
+    // Actualiza el índice actual al terminar de scrollear manualmente
+    certCarousel.addEventListener("scroll", () => {
+        const slideWidth = certCarousel.querySelector("div").offsetWidth + 24;
+        const newIndex = Math.round(certCarousel.scrollLeft / slideWidth);
+        currentIndex = newIndex;
+        updateIndicators(newIndex);
+    });
+
+    // Clic en indicadores
+    indicators.forEach((dot, i) => {
+        dot.addEventListener("click", () => {
+            scrollToSlide(i);
+            restartAutoScroll();
+        });
+    });
+
+    function restartAutoScroll() {
+        stopAutoScroll();
+        startAutoScroll();
+    }
+
+    // Iniciar
+    updateIndicators(currentIndex);
+    startAutoScroll();
