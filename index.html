@@ -117,39 +117,69 @@
 
     <main id="pageContent">
         <!-- HERO -->
-        <header id="contenido" class="bg-primary text-white pt-20 pb-14 relative overflow-hidden">
-            <div class="mx-auto max-w-7xl px-6 lg:px-10 grid md:grid-cols-2 gap-10 items-center">
+        <header id="contenido" class="relative bg-primary text-white pt-20 pb-14 overflow-hidden 
+        bg-[url('img/bg/bg1.png')] bg-cover bg-center md:bg-none">
+
+            <!-- Overlay degradado + blur (solo en móviles) -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/20 
+                backdrop-blur-sm md:hidden"></div>
+
+            <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-10 grid md:grid-cols-2 gap-10 items-center">
                 <div>
                     <h1 class="font-montserrat text-4xl md:text-5xl font-extrabold leading-tight">
                         Pasantías seguras y <span class="text-secondary">prácticas preprofesionales</span> en Guayaquil,
                         Ecuador
                     </h1>
-                    <p class="mt-4 text-lg opacity-90">La plataforma de pasantías que conecta <strong>estudiantes
-                            universitarios</strong> con <strong>empresas verificadas</strong> y
-                        <strong>universidades</strong> para una experiencia confiable, con <strong>certificación
-                            digital</strong> y <strong>seguimiento</strong>.
+                    <p class="mt-4 text-lg opacity-90">
+                        La plataforma de pasantías que conecta <strong>estudiantes universitarios</strong> con
+                        <strong>empresas verificadas</strong> y <strong>universidades</strong> para una experiencia
+                        confiable,
+                        con <strong>certificación digital</strong> y <strong>seguimiento</strong>.
                     </p>
-                    <div class="mt-6 flex flex-col sm:flex-row gap-4">
-                        <a href="#cta"
-                            class="bg-secondary text-primary font-poppins font-semibold py-3 px-6 rounded-lg shadow-soft hover:opacity-90">Explorar
-                            pasantías seguras</a>
-                        <a href="#empresas"
-                            class="border border-white text-white font-poppins font-semibold py-3 px-6 rounded-lg hover:bg-white hover:text-primary">Para
-                            empresas</a>
+
+                    <!-- Call to Action Cards -->
+                    <div class="mt-10 grid gap-6 sm:grid-cols-3">
+                        <!-- Estudiantes -->
+                        <a href="estudiantes.html"
+                            class="bg-secondary text-primary p-6 rounded-xl shadow-soft flex flex-col items-center hover:bg-yellow-700/80 hover:text-white transition">
+                            <span class="text-4xl">🎓</span>
+                            <h3 class="font-poppins font-semibold mt-3 text-lg">Estudiantes</h3>
+                            <p class="text-sm text-center opacity-80 mt-1">
+                                Encuentra pasantías seguras y certificadas.
+                            </p>
+                        </a>
+
+                        <!-- Empresas -->
+                        <a href="empresas.html"
+                            class="bg-white/10 text-white p-6 rounded-xl shadow-soft flex flex-col items-center hover:bg-gray-900/90 hover:text-yellow-300/90 transition">
+                            <span class="text-4xl">👔</span>
+                            <h3 class="font-poppins font-semibold mt-3 text-lg">Empresas</h3>
+                            <p class="text-sm text-center opacity-80 mt-1">
+                                Publica vacantes y accede a talento validado.
+                            </p>
+                        </a>
+
+                        <!-- Universidades -->
+                        <a href="universidades.html"
+                            class="bg-gray-300/50 text-primary p-6 rounded-xl shadow-soft flex flex-col items-center hover:bg-blue-900/50 hover:text-yellow-300">
+                            <span class="text-4xl">🏫</span>
+                            <h3 class="font-poppins font-semibold mt-3 text-lg">Universidades</h3>
+                            <p class="text-sm text-center opacity-80 mt-1">
+                                Gestiona prácticas y certifica digitalmente.
+                            </p>
+                        </a>
                     </div>
-                    <ul class="mt-6 text-sm text-white/80 grid sm:grid-cols-3 gap-3">
-                        <li>Empresas verificadas</li>
-                        <li>Bolsa de pasantías</li>
-                        <li>Convenios universidad-empresa</li>
-                    </ul>
                 </div>
-                <div class="flex justify-center">
+
+                <!-- Imagen solo en desktop -->
+                <div class="hidden md:flex justify-center">
                     <img src="img/bg/bg1.png" alt="Estudiantes accediendo a una plataforma de pasantías seguras"
                         class="max-w-full h-auto rounded-lg shadow-soft" loading="lazy" />
                 </div>
             </div>
+
             <!-- MÉTRICAS (del Hero) -->
-            <div class="mt-10 md:mt-12">
+            <div class="relative z-10 mt-10 md:mt-12">
                 <dl class="grid grid-cols-2 md:grid-cols-4 gap-6">
                     <div class="bg-white/10 backdrop-blur rounded-xl p-5 text-center shadow-soft">
                         <dt class="text-white/80 text-sm">Pasantes ubicados</dt>
@@ -265,7 +295,7 @@
                         <p href="#como-funciona"
                             class="inline-block bg-primary text-white font-poppins font-semibold px-6 py-3 rounded-lg shadow-soft hover:bg-opacity-90 transition">
                             Explora cómo resolvemos estos problemas
-                    </p>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -309,107 +339,263 @@
         </section>
 
         <!-- PLANES -->
-        <section id="planes" class="py-16 bg-primary text-white bg-blend bg-center bg-cover bg-no-repeat bg-fixed"
-            style="background-image: linear-gradient(rgba(0, 54, 77, 0.86), rgba(0, 54, 77, 0.571)), url('img/bg/bg2.png');">
+        <section id="planes" class="py-20 bg-primary text-white bg-cover bg-no-repeat bg-fixed"
+            style="background-image: linear-gradient(rgba(0, 54, 77, 0.9), rgba(0, 54, 77, 0.85)), url('img/bg/bg2.png');">
             <div class="mx-auto max-w-7xl px-6 lg:px-10 text-center">
-                <h2 class="font-montserrat text-3xl md:text-4xl font-extrabold text-shadow-sm">Planes para estudiantes y empresas</h2>
-                <p class="mt-3 opacity-90 max-w-3xl mx-auto text-shadow-sm">Elige el plan que mejor se adapte a tu objetivo:
-                    <strong>gestión de pasantías</strong> para universidades y <strong>panel para empresas</strong> con
-                    métricas e informes.
+                <h2 class="font-montserrat text-3xl md:text-4xl font-extrabold">Planes para cada necesidad</h2>
+                <p class="mt-3 opacity-90 max-w-3xl mx-auto">
+                    Talent Bridge ofrece soluciones específicas para estudiantes, empresas y universidades.
+                    Elige tu plan y descubre cómo <strong>simplificamos y certificamos las pasantías seguras</strong>.
                 </p>
 
-                <div class="mt-12 grid lg:grid-cols-2 gap-8 items-stretch">
+                <!-- Cards -->
+                <div class="mt-12 grid lg:grid-cols-3 gap-8 items-stretch">
+
+                    <!-- Estudiantes -->
                     <div
-                        class="bg-white/90 text-primary p-8 rounded-xl shadow-soft flex flex-col border-t-8 border-secondary">
-                        <h3 class="font-montserrat text-2xl font-extrabold">Estudiantes: Acceso gratuito</h3>
-                        <p class="mt-2 text-dark">Encuentra <strong>prácticas preprofesionales</strong> reales en
-                            <strong>Ecuador</strong> y potencia tu perfil.
-                        </p>
+                        class="bg-white text-primary p-8 rounded-xl shadow-soft flex flex-col border-t-8 border-secondary">
+                        <div class="text-5xl">🎓</div>
+                        <h3 class="font-montserrat text-2xl font-extrabold mt-4">Estudiantes</h3>
+                        <p class="mt-2 text-dark">Encuentra tu primera <strong>práctica preprofesional</strong>
+                            en empresas verificadas y potencia tu perfil.</p>
                         <ul class="mt-6 text-left space-y-3 text-dark">
-                            <li>Acceso a ofertas verificadas</li>
-                            <li>Perfil profesional y alertas</li>
-                            <li>Soporte básico y recursos</li>
+                            <li class="flex items-center gap-3">
+                                <span
+                                    class="bg-green-100 text-green-600 rounded-full p-2 flex items-center justify-center">
+                                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                Acceso a vacantes reales y seguras
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span
+                                    class="bg-green-100 text-green-600 rounded-full p-2 flex items-center justify-center">
+                                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 11c0 .828-.895 1.5-2 1.5S8 11.828 8 11s.895-1.5 2-1.5 2 .672 2 1.5z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M6 6h12M6 18h12" />
+                                    </svg>
+                                </span>
+                                Perfil profesional con certificación digital
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span
+                                    class="bg-green-100 text-green-600 rounded-full p-2 flex items-center justify-center">
+                                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V13c0-2.21-1.79-4-4-4H9" />
+                                    </svg>
+                                </span>
+                                Alertas personalizadas y soporte básico
+                            </li>
                         </ul>
-                        <a href="estudiantes.html" class="mt-6 bg-primary text-white py-3 rounded-lg font-poppins font-semibold hover:bg-opacity-90">¡Empieza gratis!</a>
-                    </div>
-                    <div id="empresas"
-                        class="bg-white/90 text-primary p-8 rounded-xl shadow-soft flex flex-col border-t-8 border-secondary">
-                        <h3 class="font-montserrat text-2xl font-extrabold">Empresas: Plan Premium</h3>
-                        <p class="mt-2 text-dark">Publica vacantes, accede a <strong>matching inteligente</strong> y
-                            reportes de contratación.</p>
-                        <ul class="mt-6 text-left space-y-3 text-dark">
-                            <li>Publicación ilimitada</li>
-                            <li>Acceso a perfiles validados</li>
-                            <li>Métricas, reportes y soporte prioritario</li>
-                        </ul>
-                        <a href="empresas.html" class="mt-6 bg-secondary text-primary py-3 rounded-lg font-poppins font-semibold hover:opacity-90">Ver planes
-                            para empresas</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Separador curvo entre Planes y Universidades -->
-        <div class="relative">
-            <svg class="absolute top-0 left-0 w-full h-20 text-white" xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 1440 320" preserveAspectRatio="none">
-                <path fill="currentColor" fill-opacity="1"
-                    d="M0,224L48,202.7C96,181,192,139,288,117.3C384,96,480,96,576,122.7C672,149,768,203,864,229.3C960,256,1056,256,1152,224C1248,192,1344,128,1392,96L1440,64L1440,0L0,0Z">
-                </path>
-            </svg>
-        </div>
-
-        <!-- UNIVERSIDADES -->
-        <section id="universidades" class="bg-secondary py-20 text-center bg-cover bg-no-repeat bg-fixed"
-            style="background-image: linear-gradient(rgba(233, 165, 14, 1), rgba(233, 165, 14, 0.50)), url('img/bg/bg5.jpg');">
-            <div class="mx-auto max-w-7xl px-6 lg:px-10 text-center">
-                <h2 class="font-montserrat text-3xl md:text-4xl font-extrabold text-primary text-shadow-sm">
-                    Planes para Universidades
-                </h2>
-                <p class="mt-3 opacity-90 max-w-3xl mx-auto text-primary font-poppins font-semibold text-shadow-sm">
-                    Con Talent Bridge, las universidades pueden <strong>gestionar pasantías</strong>,
-                    dar seguimiento en tiempo real y validar prácticas con <strong>certificación digital</strong>.
-                </p>
-                <div class="mt-12 grid md:grid-cols-2 gap-8 items-stretch">
-
-                    <!-- Opción de prueba gratuita -->
-                    <div
-                        class="bg-white/95 text-primary p-8 rounded-xl shadow-soft border-t-8 border-secondary flex flex-col">
-                        <h3 class="font-montserrat text-2xl font-extrabold">Periodo de prueba</h3>
-                        <p class="mt-2 text-dark">Explora todas las funciones de Talent Bridge durante
-                            <strong>30 días</strong> sin compromiso.
-                        </p>
-                        <ul class="mt-6 text-left space-y-3 text-dark">
-                            <li>Acceso al panel universitario</li>
-                            <li>Seguimiento de estudiantes en tiempo real</li>
-                            <li>Certificación digital incluida</li>
-                        </ul>
-                        <a href="#"
-                            class="mt-6 bg-secondary text-primary py-3 rounded-lg font-poppins font-semibold hover:opacity-90">
-                            Probar gratis
+                        <a href="estudiantes.html"
+                            class="mt-6 bg-primary text-white py-3 rounded-lg font-poppins font-semibold hover:bg-opacity-90">
+                            Explorar como estudiante
                         </a>
                     </div>
 
-                    <!-- Plan institucional -->
+                    <!-- Empresas -->
                     <div
-                        class="bg-white/95 text-primary p-8 rounded-xl shadow-soft border-t-8 border-secondary flex flex-col">
-                        <h3 class="font-montserrat text-2xl font-extrabold">Plan Institucional</h3>
-                        <p class="mt-2 text-dark">Optimiza la gestión de prácticas preprofesionales con un
-                            <strong>convenio activo</strong> universidad-empresa.
-                        </p>
+                        class="bg-white text-primary p-8 rounded-xl shadow-soft flex flex-col border-t-8 border-blue-600">
+                        <div class="text-5xl">👔</div>
+                        <h3 class="font-montserrat text-2xl font-extrabold mt-4">Empresas</h3>
+                        <p class="mt-2 text-dark">Atrae talento validado con <strong>matching inteligente</strong>
+                            y reportes claros de contratación.</p>
                         <ul class="mt-6 text-left space-y-3 text-dark">
-                            <li>Dashboard completo de estudiantes y empresas</li>
-                            <li>Reportes y métricas de desempeño</li>
-                            <li>Soporte prioritario</li>
+                            <li class="flex items-center gap-3">
+                                <span
+                                    class="bg-blue-100 text-blue-600 rounded-full p-2 flex items-center justify-center">
+                                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M4 6h16M4 12h16M4 18h16" />
+                                    </svg>
+                                </span>
+                                Publicación ilimitada de vacantes
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span
+                                    class="bg-blue-100 text-blue-600 rounded-full p-2 flex items-center justify-center">
+                                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M5.121 17.804A13.937 13.937 0 0112 15c2.489 0 4.797.66 6.879 1.804M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    </svg>
+                                </span>
+                                Acceso a perfiles verificados
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span
+                                    class="bg-blue-100 text-blue-600 rounded-full p-2 flex items-center justify-center">
+                                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M11 11V7a4 4 0 10-8 0v4a4 4 0 008 0zm6 0V7a4 4 0 10-8 0v4a4 4 0 008 0z" />
+                                    </svg>
+                                </span>
+                                Métricas de desempeño y soporte prioritario
+                            </li>
+                        </ul>
+                        <a href="empresas.html"
+                            class="mt-6 bg-secondary text-primary py-3 rounded-lg font-poppins font-semibold hover:opacity-90">
+                            Explorar como empresa
+                        </a>
+                    </div>
+
+                    <!-- Universidades -->
+                    <div
+                        class="bg-white text-primary p-8 rounded-xl shadow-soft flex flex-col border-t-8 border-yellow-600">
+                        <div class="text-5xl">🏫</div>
+                        <h3 class="font-montserrat text-2xl font-extrabold mt-4">Universidades</h3>
+                        <p class="mt-2 text-dark">Gestiona prácticas con un <strong>panel completo</strong>
+                            y emite certificaciones verificables.</p>
+                        <ul class="mt-6 text-left space-y-3 text-dark">
+                            <li class="flex items-center gap-3">
+                                <span
+                                    class="bg-yellow-100 text-yellow-600 rounded-full p-2 flex items-center justify-center">
+                                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 12h6m2 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </span>
+                                Panel para seguimiento en tiempo real
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span
+                                    class="bg-yellow-100 text-yellow-600 rounded-full p-2 flex items-center justify-center">
+                                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M17 20h5V4h-5M7 20h10V4H7v16z" />
+                                    </svg>
+                                </span>
+                                Convenios universidad-empresa activos
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <span
+                                    class="bg-yellow-100 text-yellow-600 rounded-full p-2 flex items-center justify-center">
+                                    <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 12h6m-3-3v6m9 6V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2h14a2 2 0 002-2z" />
+                                    </svg>
+                                </span>
+                                Reportes, métricas y certificación digital
+                            </li>
                         </ul>
                         <a href="universidades.html"
-                            class="mt-6 bg-primary text-white py-3 rounded-lg font-poppins font-semibold hover:opacity-90">
-                            Solicitar convenio
+                            class="mt-6 bg-secondary text-primary py-3 rounded-lg font-poppins font-semibold hover:opacity-90">
+                            Explorar como universidad
                         </a>
                     </div>
                 </div>
+
+                <!-- Botón mostrar tabla -->
+                <div class="mt-10">
+                    <button id="toggleTable"
+                        class="bg-white text-primary font-poppins font-semibold px-6 py-3 rounded-lg shadow hover:bg-yellow-700/70 hover:text-white transition">
+                        Ver comparación detallada
+                    </button>
+                </div>
+
+                <!-- Tabla comparativa oculta -->
+                <div id="tableContainer" class="mt-8 overflow-x-auto hidden">
+                    <table class="min-w-full text-left bg-white text-dark rounded-xl shadow-soft overflow-hidden">
+                        <thead class="bg-gray-100 text-primary">
+                            <tr>
+                                <th class="py-3 px-4"></th>
+                                <th class="py-3 px-4 text-center">🎓 Estudiantes</th>
+                                <th class="py-3 px-4 text-center">👔 Empresas</th>
+                                <th class="py-3 px-4 text-center">🏫 Universidades</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <!-- Fila de precios -->
+                            <tr>
+                                <td class="py-4 px-4 font-semibold">Modalidad / Precio</td>
+                                <td class="py-4 px-4 text-center">
+                                    <p class="font-semibold text-green-600">Gratis</p>
+                                    <a href="estudiantes.html"
+                                        class="mt-2 inline-block bg-primary text-white px-4 py-2 rounded-lg text-sm font-poppins font-semibold hover:bg-opacity-90">
+                                        Ver más
+                                    </a>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <p class="font-semibold text-blue-600">Premium</p>
+                                    <span class="block text-sm text-gray-500">Mensual o anual</span>
+                                    <a href="empresas.html"
+                                        class="mt-2 inline-block bg-secondary text-primary px-4 py-2 rounded-lg text-sm font-poppins font-semibold hover:bg-opacity-90">
+                                        Ver planes
+                                    </a>
+                                </td>
+                                <td class="py-4 px-4 text-center">
+                                    <p class="font-semibold text-yellow-600">Institucional</p>
+                                    <span class="block text-sm text-gray-500">Convenio</span>
+                                    <a href="universidades.html"
+                                        class="mt-2 inline-block bg-primary text-white px-4 py-2 rounded-lg text-sm font-poppins font-semibold hover:bg-opacity-90">
+                                        Solicitar
+                                    </a>
+                                </td>
+                            </tr>
+
+                            <!-- Fila acceso -->
+                            <tr>
+                                <td class="py-3 px-4 font-semibold">Acceso</td>
+                                <td class="py-3 px-4 text-center">Vacantes verificadas</td>
+                                <td class="py-3 px-4 text-center">Publicación ilimitada</td>
+                                <td class="py-3 px-4 text-center">Panel institucional</td>
+                            </tr>
+
+                            <!-- Fila soporte -->
+                            <tr>
+                                <td class="py-3 px-4 font-semibold">Soporte</td>
+                                <td class="py-3 px-4 text-center">Básico</td>
+                                <td class="py-3 px-4 text-center">Prioritario</td>
+                                <td class="py-3 px-4 text-center">Prioritario</td>
+                            </tr>
+
+                            <!-- Fila certificación -->
+                            <tr>
+                                <td class="py-3 px-4 font-semibold">Certificación</td>
+                                <td class="py-3 px-4 text-center">Incluida</td>
+                                <td class="py-3 px-4 text-center">Opcional</td>
+                                <td class="py-3 px-4 text-center">Gestión completa</td>
+                            </tr>
+
+                            <!-- Fila reportes -->
+                            <tr>
+                                <td class="py-3 px-4 font-semibold">Reportes</td>
+                                <td class="py-3 px-4 text-center">Alertas básicas</td>
+                                <td class="py-3 px-4 text-center">Contratación y métricas</td>
+                                <td class="py-3 px-4 text-center">Seguimiento y estadísticas</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </section>
+
+        <!-- Script para mostrar/ocultar tabla -->
+        <script>
+            const toggleBtn = document.getElementById("toggleTable");
+            const table = document.getElementById("tableContainer");
+
+            toggleBtn.addEventListener("click", () => {
+                table.classList.toggle("hidden");
+                toggleBtn.textContent = table.classList.contains("hidden")
+                    ? "Ver comparación detallada"
+                    : "Ocultar comparación";
+            });
+        </script>
 
 
         <!-- TESTIMONIOS (CARRUSEL AUTOMÁTICO) -->
@@ -495,96 +681,96 @@
                     Mira algunos ejemplos: 🎓
                 </p>
 
-<!-- Carrusel -->
-<div class="relative mt-12">
-    <!-- Botón Izquierda (oculto en móviles) -->
-    <button id="prevBtn"
-        class="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 bg-primary/80 text-white p-3 rounded-full shadow hover:bg-primary transition z-10">
-        &#10094;
-    </button>
+                <!-- Carrusel -->
+                <div class="relative mt-12">
+                    <!-- Botón Izquierda (oculto en móviles) -->
+                    <button id="prevBtn"
+                        class="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 bg-primary/80 text-white p-3 rounded-full shadow hover:bg-primary transition z-10">
+                        &#10094;
+                    </button>
 
-    <!-- Contenedor del carrusel -->
-    <div id="certCarousel"
-        class="flex overflow-x-auto snap-x snap-mandatory gap-6 scroll-smooth pb-6 no-scrollbar">
+                    <!-- Contenedor del carrusel -->
+                    <div id="certCarousel"
+                        class="flex overflow-x-auto snap-x snap-mandatory gap-6 scroll-smooth pb-6 no-scrollbar">
 
-        <!-- Item 1 -->
-        <div
-            class="relative group overflow-hidden rounded-xl shadow-soft snap-center min-w-[280px] max-w-sm flex-shrink-0">
-            <img src="img/gallery/gMG.png" alt="Estudiante con certificación"
-                class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
-            <div
-                class="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div
-                    class="w-full bg-gradient-to-t from-black/70 via-black/40 to-transparent px-4 py-3 text-center transform translate-y-6 group-hover:translate-y-0 transition-all duration-500 ease-out">
-                    <p class="text-white font-poppins font-semibold">María G. – Marketing</p>
+                        <!-- Item 1 -->
+                        <div
+                            class="relative group overflow-hidden rounded-xl shadow-soft snap-center min-w-[280px] max-w-sm flex-shrink-0">
+                            <img src="img/gallery/gMG.png" alt="Estudiante con certificación"
+                                class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
+                            <div
+                                class="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <div
+                                    class="w-full bg-gradient-to-t from-black/70 via-black/40 to-transparent px-4 py-3 text-center transform translate-y-6 group-hover:translate-y-0 transition-all duration-500 ease-out">
+                                    <p class="text-white font-poppins font-semibold">María G. – Marketing</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 2 -->
+                        <div
+                            class="relative group overflow-hidden rounded-xl shadow-soft snap-center min-w-[280px] max-w-sm flex-shrink-0">
+                            <img src="img/gallery/gJM.png" alt="Estudiante con certificación"
+                                class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
+                            <div
+                                class="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <div
+                                    class="w-full bg-gradient-to-t from-black/70 via-black/40 to-transparent px-4 py-3 text-center transform translate-y-6 group-hover:translate-y-0 transition-all duration-500 ease-out">
+                                    <p class="text-white font-poppins font-semibold">José M. – Ingeniería</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 3 -->
+                        <div
+                            class="relative group overflow-hidden rounded-xl shadow-soft snap-center min-w-[280px] max-w-sm flex-shrink-0">
+                            <img src="img/gallery/gEW.png" alt="Estudiante con certificación"
+                                class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
+                            <div
+                                class="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <div
+                                    class="w-full bg-gradient-to-t from-black/70 via-black/40 to-transparent px-4 py-3 text-center transform translate-y-6 group-hover:translate-y-0 transition-all duration-500 ease-out">
+                                    <p class="text-white font-poppins font-semibold">Lucía F. – Derecho</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 4 -->
+                        <div
+                            class="relative group overflow-hidden rounded-xl shadow-soft snap-center min-w-[280px] max-w-sm flex-shrink-0">
+                            <img src="img/gallery/gCS.png" alt="Estudiante con certificación"
+                                class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
+                            <div
+                                class="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <div
+                                    class="w-full bg-gradient-to-t from-black/70 via-black/40 to-transparent px-4 py-3 text-center transform translate-y-6 group-hover:translate-y-0 transition-all duration-500 ease-out">
+                                    <p class="text-white font-poppins font-semibold">Carlos S. – Sistemas</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Item 5 -->
+                        <div
+                            class="relative group overflow-hidden rounded-xl shadow-soft snap-center min-w-[280px] max-w-sm flex-shrink-0">
+                            <img src="img/gallery/gAP.png" alt="Estudiante con certificación"
+                                class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
+                            <div
+                                class="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                                <div
+                                    class="w-full bg-gradient-to-t from-black/70 via-black/40 to-transparent px-4 py-3 text-center transform translate-y-6 group-hover:translate-y-0 transition-all duration-500 ease-out">
+                                    <p class="text-white font-poppins font-semibold">Andrea P. – Administración</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Botón Derecha (oculto en móviles) -->
+                    <button id="nextBtn"
+                        class="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 bg-primary/80 text-white p-3 rounded-full shadow hover:bg-primary transition z-10">
+                        &#10095;
+                    </button>
                 </div>
-            </div>
-        </div>
-
-        <!-- Item 2 -->
-        <div
-            class="relative group overflow-hidden rounded-xl shadow-soft snap-center min-w-[280px] max-w-sm flex-shrink-0">
-            <img src="img/gallery/gJM.png" alt="Estudiante con certificación"
-                class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
-            <div
-                class="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div
-                    class="w-full bg-gradient-to-t from-black/70 via-black/40 to-transparent px-4 py-3 text-center transform translate-y-6 group-hover:translate-y-0 transition-all duration-500 ease-out">
-                    <p class="text-white font-poppins font-semibold">José M. – Ingeniería</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Item 3 -->
-        <div
-            class="relative group overflow-hidden rounded-xl shadow-soft snap-center min-w-[280px] max-w-sm flex-shrink-0">
-            <img src="img/gallery/gEW.png" alt="Estudiante con certificación"
-                class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
-            <div
-                class="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div
-                    class="w-full bg-gradient-to-t from-black/70 via-black/40 to-transparent px-4 py-3 text-center transform translate-y-6 group-hover:translate-y-0 transition-all duration-500 ease-out">
-                    <p class="text-white font-poppins font-semibold">Lucía F. – Derecho</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Item 4 -->
-        <div
-            class="relative group overflow-hidden rounded-xl shadow-soft snap-center min-w-[280px] max-w-sm flex-shrink-0">
-            <img src="img/gallery/gCS.png" alt="Estudiante con certificación"
-                class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
-            <div
-                class="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div
-                    class="w-full bg-gradient-to-t from-black/70 via-black/40 to-transparent px-4 py-3 text-center transform translate-y-6 group-hover:translate-y-0 transition-all duration-500 ease-out">
-                    <p class="text-white font-poppins font-semibold">Carlos S. – Sistemas</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Item 5 -->
-        <div
-            class="relative group overflow-hidden rounded-xl shadow-soft snap-center min-w-[280px] max-w-sm flex-shrink-0">
-            <img src="img/gallery/gAP.png" alt="Estudiante con certificación"
-                class="w-full h-72 object-cover group-hover:scale-110 transition duration-500">
-            <div
-                class="absolute inset-0 flex items-end justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div
-                    class="w-full bg-gradient-to-t from-black/70 via-black/40 to-transparent px-4 py-3 text-center transform translate-y-6 group-hover:translate-y-0 transition-all duration-500 ease-out">
-                    <p class="text-white font-poppins font-semibold">Andrea P. – Administración</p>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Botón Derecha (oculto en móviles) -->
-    <button id="nextBtn"
-        class="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 bg-primary/80 text-white p-3 rounded-full shadow hover:bg-primary transition z-10">
-        &#10095;
-    </button>
-</div>
 
                 <!-- Indicadores -->
                 <div id="carouselIndicators" class="flex justify-center gap-3 mt-6">
