@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Panel de la Empresa | Talent Bridge</title>
+
+  <!-- Tailwind & Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+  <script src="https://kit.fontawesome.com/a2d5d5a92f.js" crossorigin="anonymous"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@500;600&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --primary:#00364d; --secondary:#e9a50e;
+      --bg:#f9fafb; --text:#1f2937;
+      --card:rgba(255,255,255,0.8); --card-border:rgba(255,255,255,0.4);
+      --sidebar-bg:rgba(0,54,77,0.9); --sidebar-br:rgba(255,255,255,0.1);
+      --hero-grad-a:rgba(0,54,77,0.95); --hero-grad-b:rgba(0,54,77,0.85); --hero-grad-c:rgba(233,165,14,0.85);
+      --progress-track:rgba(0,54,77,0.1);
+    }
+    .dark{
+      --bg:#0b1220; --text:#e5e7eb;
+      --card:rgba(16,23,42,0.7); --card-border:rgba(255,255,255,0.08);
+      --sidebar-bg:rgba(3,21,32,0.9); --sidebar-br:rgba(255,255,255,0.06);
+      --hero-grad-a:rgba(2,18,30,0.95); --hero-grad-b:rgba(3,31,49,0.9); --hero-grad-c:rgba(233,165,14,0.8);
+      --progress-track:rgba(255,255,255,0.08);
+    }
+    body{ font-family:'Open Sans',sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; position:relative; }
+
+    /* Fondo animado */
+    .animated-bg{ position:fixed; inset:0; z-index:0;
+      background:radial-gradient(circle at 20% 80%, rgba(233,165,14,0.05) 0%, transparent 60%),
+                 radial-gradient(circle at 80% 20%, rgba(0,54,77,0.06) 0%, transparent 60%);
+      animation:moveBg 40s linear infinite alternate; pointer-events:none;
+    }
+    .dark .animated-bg{
+      background:radial-gradient(circle at 20% 80%, rgba(233,165,14,0.08) 0%, transparent 60%),
+                 radial-gradient(circle at 80% 20%, rgba(0,54,77,0.1) 0%, transparent 60%);
+    }
+    @keyframes moveBg{ 0%{transform:scale(1) rotate(0)} 50%{transform:scale(1.05) rotate(180deg)} 100%{transform:scale(1) rotate(360deg)} }
+
+    /* Partículas */
+    .particles{ position:fixed; inset:0; z-index:1; overflow:hidden; pointer-events:none; }
+    .particle{ position:absolute; border-radius:50%; opacity:.7; filter:blur(1px); animation:floatParticle linear infinite; }
+    @keyframes floatParticle{ 0%{transform:translateY(0) translateX(0); opacity:.6} 50%{opacity:1} 100%{transform:translateY(-100vh) translateX(20px); opacity:0} }
+
+    /* Sidebar */
+    .modern-sidebar{ background:var(--sidebar-bg); backdrop-filter:blur(20px); border-right:1px solid var(--sidebar-br); box-shadow:0 0 25px rgba(0,0,0,.3); position:relative; overflow:hidden; transition:all .4s ease; }
+    .modern-sidebar::before{ content:''; position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(233,165,14,.06)); background-size:100% 200%; animation:gradientFlow 12s ease-in-out infinite alternate; z-index:0; }
+    @keyframes gradientFlow{ 0%{background-position:0 0} 100%{background-position:0 100%} }
+    .modern-sidebar *{ position:relative; z-index:1; }
+    .modern-sidebar nav a{ display:flex; align-items:center; gap:12px; padding:.9rem 1.2rem; border-radius:.9rem; font-weight:500; color:rgba(255,255,255,.85); transition:all .3s ease; position:relative; overflow:hidden; }
+    .modern-sidebar nav a i{ font-size:1.1rem; color:rgba(255,255,255,.8); transition:all .4s ease; }
+    .modern-sidebar nav a.active::before,.modern-sidebar nav a:hover::before{ content:''; position:absolute; left:0; top:0; bottom:0; width:4px; background:linear-gradient(180deg, var(--secondary), #fff); border-radius:0 4px 4px 0; opacity:.9; }
+    .modern-sidebar nav a:hover{ background:rgba(255,255,255,.1); color:#fff; transform:translateX(4px); }
+    .modern-sidebar nav a:hover i{ color:var(--secondary); transform:scale(1.1); }
+    .modern-sidebar nav a.active{ background:rgba(255,255,255,.15); color:#fff; }
+
+    /* Hero */
+    .hero{ background:linear-gradient(135deg, var(--hero-grad-a), var(--hero-grad-b) 40%, var(--hero-grad-c) 100%); color:#fff; position:relative; overflow:hidden; z-index:2; border-radius:1.25rem; }
+    .hero::after{ content:""; position:absolute; top:-20%; left:-20%; width:150%; height:150%; background:radial-gradient(circle at 30% 50%, rgba(255,255,255,.07) 0%, transparent 70%); animation:rotate 40s linear infinite; pointer-events:none; z-index:0; }
+    .hero>*{ position:relative; z-index:1; }
+    @keyframes rotate{ from{transform:rotate(0)} to{transform:rotate(360deg)} }
+
+    /* Cards */
+    .glass-card{ background:var(--card); backdrop-filter:blur(20px); border:1px solid var(--card-border); border-radius:1.5rem; transition:all .3s ease; position:relative; z-index:2; overflow:hidden; }
+    .glass-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--secondary), var(--primary)); }
+    .glass-card:hover{ transform:translateY(-6px); box-shadow:0 10px 25px rgba(0,0,0,.08); }
+
+    .header-blur{ background:rgba(255,255,255,.8); }
+    .dark .header-blur{ background:rgba(2,8,23,.6); }
+
+    .badge-premium{ font-size:.65rem; letter-spacing:.03em; }
+
+    .job-row:hover{ background:rgba(0,0,0,.02); }
+    .dark .job-row:hover{ background:rgba(255,255,255,.03); }
+  </style>
+</head>
+
+<body class="min-h-screen flex">
+  <div class="animated-bg"></div>
+  <div class="particles" id="particles"></div>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="modern-sidebar fixed inset-y-0 left-0 w-72 flex flex-col justify-between z-[70] transform transition-transform duration-300 ease-out -translate-x-full md:translate-x-0" aria-hidden="true" aria-label="Navegación principal">
+    <div class="px-6 py-8 flex flex-col h-full">
+      <!-- Header móvil -->
+      <div class="md:hidden flex items-center justify-between mb-4">
+        <div class="flex items-center gap-3">
+          <img src="img/logo/Talent_Bridge_FH_Final.svg" alt="Talent Bridge" class="h-8 w-auto">
+          <span class="text-white font-semibold">Menú</span>
+        </div>
+        <button id="closeSidebar" class="text-white/80 hover:text-white text-2xl" aria-label="Cerrar menú">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Logo desktop -->
+      <div class="hidden md:flex items-center gap-3 mb-6 border-b border-white/10 pb-4">
+        <img src="img/logo/Talent_Bridge_FH_Final.svg" alt="Talent Bridge" class="h-10 w-auto">
+        <h2 class="font-montserrat text-lg font-extrabold text-white tracking-wide">Talent Bridge</h2>
+      </div>
+
+      <!-- Empresa -->
+      <div class="flex flex-col items-center text-center mb-8">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Avatar" class="w-16 h-16 rounded-full border-2 border-white/40 mb-2">
+        <h3 id="navCompanyName" class="text-white font-semibold text-lg"></h3>
+        <p id="navCompanyEmail" class="text-white/70 text-sm"></p>
+      </div>
+
+      <!-- Nav -->
+      <nav id="sideNav" class="flex-1 flex flex-col gap-1">
+        <a href="#/inicio" data-route="#/inicio" class="active"><i class="fa-solid fa-house"></i><span>Inicio</span></a>
+        <a href="#/vacantes" data-route="#/vacantes"><i class="fa-solid fa-briefcase"></i><span>Mis Vacantes</span></a>
+        <a href="#/candidatos" data-route="#/candidatos"><i class="fa-solid fa-users"></i><span>Candidatos</span></a>
+        <a href="#/perfil" data-route="#/perfil"><i class="fa-solid fa-building"></i><span>Perfil Empresa</span></a>
+        <a href="#/premium" data-route="#/premium"><i class="fa-solid fa-gem"></i><span>Premium</span></a>
+      </nav>
+    </div>
+
+    <div class="p-6 border-t border-white/10 flex items-center justify-end">
+      <button id="logout" class="bg-gradient-to-r from-[var(--secondary)] to-yellow-400 text-[var(--primary)] font-semibold py-2 px-4 rounded-xl hover:shadow-md transition-all flex items-center gap-2">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Cerrar sesión</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Overlay móvil -->
+  <div id="sidebarOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-md opacity-0 pointer-events-none hidden transition-opacity duration-300 z-[60] md:hidden"></div>
+
+  <!-- Contenido -->
+  <div class="flex-1 md:ml-72 flex flex-col relative z-10">
+    <header class="header-blur backdrop-blur sticky top-0 z-50 border-b border-gray-200 dark:border-white/10 p-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <button id="menuBtn" type="button" aria-label="Abrir menú" aria-controls="sidebar" aria-expanded="false"
+          class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full text-[var(--primary)] dark:text-white ring-1 ring-inset ring-gray-300/70 dark:ring-white/10 bg-white/80 dark:bg-slate-800/70">
+          <!-- Hamburguesa -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+               width="22" height="22" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+        <h1 class="flex items-center gap-2 text-xl font-montserrat font-extrabold tracking-tight text-[var(--primary)] dark:text-white">
+          <span id="headerTitle">Panel de la Empresa</span>
+          <span id="premiumBadge" class="badge-premium hidden px-2 py-0.5 rounded-full bg-yellow-400/80 text-[var(--primary)] font-bold">PREMIUM</span>
+        </h1>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="themeToggle" type="button" aria-label="Cambiar tema" aria-pressed="false"
+          class="relative inline-flex items-center justify-center w-10 h-10 rounded-full ring-1 ring-inset ring-gray-200 dark:ring-white/10 bg-white/70 dark:bg-slate-800/70 transition hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--secondary)]">
+          <!-- Sol (claro) -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+               class="w-5 h-5 text-yellow-400 dark:hidden" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <line x1="12" y1="2" x2="12" y2="4"></line>
+            <line x1="12" y1="20" x2="12" y2="22"></line>
+            <line x1="4.93" y1="4.93" x2="6.34" y2="6.34"></line>
+            <line x1="17.66" y1="17.66" x2="19.07" y2="19.07"></line>
+            <line x1="2" y1="12" x2="4" y2="12"></line>
+            <line x1="20" y1="12" x2="22" y2="12"></line>
+            <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"></line>
+            <line x1="17.66" y1="6.34" x2="19.07" y2="4.93"></line>
+          </svg>
+          <!-- Luna (oscuro) -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+               class="w-5 h-5 text-yellow-300 hidden dark:inline" fill="currentColor" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- SPA -->
+    <main id="app" class="p-8 space-y-12"></main>
+  </div>
+
+  <!-- Paywall Premium -->
+  <div id="paywall" class="fixed inset-0 z-[80] hidden">
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+    <div class="relative z-[81] max-w-xl mx-auto mt-24 p-6 rounded-2xl border border-white/10 bg-white/90 dark:bg-slate-900/80">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-xl font-montserrat font-extrabold text-[var(--primary)] dark:text-white">Mejora a Premium</h3>
+        <button id="paywallClose" class="text-gray-600 dark:text-gray-300 hover:opacity-80">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+      <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">
+        Con <strong>Talent Bridge Premium Empresas</strong> obtienes <em>rankings por afinidad (IA)</em> de candidatos, perfiles destacados en la bolsa y alertas prioritarias.
+      </p>
+      <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1 mb-5">
+        <li>Orden automático de candidatos por match</li>
+        <li>Vacantes destacadas para atraer más talento</li>
+        <li>Filtros avanzados y exportación</li>
+      </ul>
+      <div class="flex flex-col sm:flex-row gap-3 sm:justify-end">
+        <button id="paywallLater" class="px-4 py-2 rounded-xl border border-gray-300 dark:border-white/20 text-gray-800 dark:text-gray-200">Más tarde</button>
+        <button id="paywallActivate" class="px-4 py-2 rounded-xl bg-gradient-to-r from-[var(--secondary)] to-yellow-400 text-[var(--primary)] font-bold">Activar Premium</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Crear/Editar Vacante -->
+  <div id="vacanteModal" class="fixed inset-0 z-[85] hidden">
+    <div id="vacanteOverlay" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+    <div class="relative z-[86] max-w-2xl mx-auto mt-12 p-6 rounded-2xl border border-white/10 bg-white/95 dark:bg-slate-900/85">
+      <div class="flex items-start justify-between gap-4">
+        <h3 id="vacanteModalTitle" class="text-xl font-montserrat font-extrabold text-[var(--primary)] dark:text-white">Nueva Vacante</h3>
+        <button id="vacanteClose" class="text-gray-600 dark:text-gray-300 hover:opacity-80">
+          <i class="fa-solid fa-xmark text-2xl"></i>
+        </button>
+      </div>
+
+      <form id="vacanteForm" class="mt-4 grid md:grid-cols-2 gap-4">
+        <div class="md:col-span-2">
+          <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Puesto</label>
+          <input id="v_puesto" required class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none" />
+        </div>
+        <div>
+          <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Ciudad</label>
+          <input id="v_ciudad" class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none" />
+        </div>
+        <div>
+          <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Modalidad</label>
+          <select id="v_modalidad" class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3">
+            <option>Híbrido</option><option>Remoto</option><option>Presencial</option>
+          </select>
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Carreras objetivo (coma)</label>
+          <input id="v_carreras" placeholder="Software, Sistemas, Marketing..." class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none" />
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Tags/habilidades (coma)</label>
+          <input id="v_tags" placeholder="React, SQL, UX, ..." class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none" />
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Descripción</label>
+          <textarea id="v_desc" rows="4" class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none"></textarea>
+        </div>
+        <div class="md:col-span-2 flex items-center gap-2">
+          <input id="v_activa" type="checkbox" class="w-4 h-4">
+          <label for="v_activa" class="text-sm text-gray-700 dark:text-gray-300">Vacante activa</label>
+        </div>
+        <div class="md:col-span-2 flex justify-end gap-3">
+          <button type="button" id="vacanteCancel" class="px-4 py-2 rounded-xl border border-gray-300 dark:border-white/20 text-gray-800 dark:text-gray-200">Cancelar</button>
+          <button type="submit" class="px-4 py-2 rounded-xl bg-[var(--primary)] text-white">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    /* ==== Tema inicial ==== */
+    (function initTheme(){
+      const stored = localStorage.getItem('tb-theme');
+      const prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = stored ? stored === 'dark' : prefers;
+      document.documentElement.classList.toggle('dark', isDark);
+      queueMicrotask(() => {
+        const t = document.getElementById('themeToggle');
+        if (t) {
+          t.setAttribute('aria-pressed', String(isDark));
+          t.setAttribute('aria-label', isDark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro');
+        }
+      });
+    })();
+
+    /* ==== Seguridad: solo empresas ==== */
+    window.usuario = JSON.parse(localStorage.getItem("usuarioActivo"));
+    if (!window.usuario || window.usuario.tipo !== "empresa") {
+      // Reutiliza tu flujo de login
+      window.location.href = "login.html";
+    } else {
+      document.getElementById("navCompanyName").textContent = window.usuario.nombre || window.usuario.empresa || 'Mi Empresa';
+      document.getElementById("navCompanyEmail").textContent = window.usuario.email || "empresa@ejemplo.com";
+    }
+
+    /* ==== Premium por sesión (empresa) ==== */
+    function isPremium(){ return !!(window.usuario && window.usuario.premium === true); }
+    function setPremium(val){
+      if (!window.usuario) return;
+      window.usuario = { ...window.usuario, premium: !!val };
+      localStorage.setItem("usuarioActivo", JSON.stringify(window.usuario));
+      refreshPremiumBadge();
+    }
+    function refreshPremiumBadge(){
+      document.getElementById('premiumBadge').classList.toggle('hidden', !isPremium());
+    }
+    refreshPremiumBadge();
+
+    /* ==== Logout ==== */
+    document.getElementById("logout").addEventListener("click", () => {
+      localStorage.removeItem("usuarioActivo");
+      window.location.href = "login.html";
+    });
+
+    /* ==== Sidebar responsive ==== */
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
+    const closeSidebarBtn = document.getElementById("closeSidebar");
+    const overlay = document.getElementById("sidebarOverlay");
+    let sidebarOpen = false;
+
+    function openSidebar(){
+      sidebar.classList.remove("-translate-x-full");
+      overlay.classList.remove("hidden","pointer-events-none","opacity-0");
+      overlay.classList.add("opacity-100");
+      sidebar.setAttribute("aria-hidden","false");
+      sidebarOpen = true; document.body.style.overflow="hidden";
+      menuBtn?.setAttribute("aria-expanded","true");
+    }
+    function closeSidebar(){
+      sidebar.classList.add("-translate-x-full");
+      overlay.classList.remove("opacity-100"); overlay.classList.add("opacity-0");
+      const onFadeEnd = ()=>{ overlay.classList.add("hidden","pointer-events-none"); overlay.removeEventListener("transitionend", onFadeEnd); };
+      overlay.addEventListener("transitionend", onFadeEnd, { once:true });
+      sidebar.setAttribute("aria-hidden","true");
+      sidebarOpen=false; document.body.style.overflow="";
+      menuBtn?.setAttribute("aria-expanded","false");
+    }
+    menuBtn?.addEventListener("click", ()=>{ if (window.matchMedia("(min-width: 768px)").matches) return; sidebarOpen?closeSidebar():openSidebar(); });
+    closeSidebarBtn?.addEventListener("click", closeSidebar);
+    overlay?.addEventListener("click", closeSidebar);
+    document.addEventListener("keydown", (e)=>{ if(e.key==="Escape" && sidebarOpen) closeSidebar(); });
+    const mqMd = window.matchMedia("(min-width: 768px)");
+    mqMd.addEventListener?.("change", (e)=>{ if(e.matches){ sidebar.classList.remove("-translate-x-full"); overlay.classList.add("hidden","pointer-events-none","opacity-0"); overlay.classList.remove("opacity-100"); sidebarOpen=false; document.body.style.overflow=""; menuBtn?.setAttribute("aria-expanded","false")} else { sidebar.classList.add("-translate-x-full"); overlay.classList.add("hidden","pointer-events-none","opacity-0"); overlay.classList.remove("opacity-100"); sidebarOpen=false; document.body.style.overflow=""; menuBtn?.setAttribute("aria-expanded","false")} });
+
+    /* ==== Partículas ==== */
+    const particleContainer = document.getElementById("particles");
+    (function makeParticles(){
+      for (let i=0;i<30;i++){
+        const p=document.createElement("div"); p.classList.add("particle");
+        const size=Math.random()*4+2, duration=Math.random()*10+15, delay=Math.random()*10, left=Math.random()*100, bottom=Math.random()*100;
+        const color = bottom>50? "rgba(255,255,255,.8)" : (Math.random()>0.5? "rgba(233,165,14,.9)" : (document.documentElement.classList.contains('dark')? "rgba(150,200,255,.7)" : "rgba(0,160,255,.8)"));
+        p.style.background=`radial-gradient(circle, ${color} 0%, transparent 70%)`;
+        p.style.width=`${size}px`; p.style.height=`${size}px`; p.style.left=`${left}%`; p.style.bottom=`-${Math.random()*20}px`;
+        p.style.animationDuration=`${duration}s`; p.style.animationDelay=`${delay}s`;
+        particleContainer.appendChild(p);
+      }
+    })();
+
+    /* ==== Toggle de tema ==== */
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', ()=>{
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('tb-theme', isDark?'dark':'light');
+      themeToggle.setAttribute('aria-pressed', String(isDark));
+      themeToggle.setAttribute('aria-label', isDark? 'Cambiar a tema claro' : 'Cambiar a tema oscuro');
+    });
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    mq.addEventListener?.('change', e=>{
+      if (!localStorage.getItem('tb-theme')){
+        document.documentElement.classList.toggle('dark', e.matches);
+        themeToggle.setAttribute('aria-pressed', String(e.matches));
+        themeToggle.setAttribute('aria-label', e.matches? 'Cambiar a tema claro' : 'Cambiar a tema oscuro');
+      }
+    });
+
+    /* ===== Utilidades UI ===== */
+    const app = document.getElementById('app');
+    const headerTitleEl = document.getElementById('headerTitle');
+    const sideNav = document.getElementById('sideNav');
+
+    const Card = ({title, body, classes=""}) => `
+      <section class="bg-white/90 dark:bg-slate-900/60 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-white/10 ${classes}">
+        ${title ? `<h3 class="font-poppins text-xl md:text-2xl font-semibold text-[var(--primary)] dark:text-white mb-4">${title}</h3>` : ""}
+        ${body || ""}
+      </section>
+    `;
+
+    /* ====== Data de demo ====== */
+    function vacantesKey(){
+      const id = window.usuario?.email || window.usuario?.nombre || 'empresa';
+      return `vacantes_${id}`;
+    }
+    function loadVacantes(){ try { return JSON.parse(localStorage.getItem(vacantesKey())||'[]'); } catch { return []; } }
+    function saveVacantes(list){ localStorage.setItem(vacantesKey(), JSON.stringify(list||[])); }
+
+    // candidatos falsos por vacante
+    function defaultApplicants(){
+      return [
+        { id:'a1', nombre:'Daniela R.', carrera:'Software', ciudad:'Quito', skills:['React','Tailwind','Git'], match: 78, cv:'', estado:'nuevo' },
+        { id:'a2', nombre:'Luis V.', carrera:'Datos', ciudad:'Guayaquil', skills:['SQL','Python','ETL'], match: 84, cv:'', estado:'nuevo' },
+        { id:'a3', nombre:'Ana P.', carrera:'Marketing', ciudad:'Quito', skills:['SEO','Copy','Analytics'], match: 67, cv:'', estado:'nuevo' },
+      ];
+    }
+
+    /* ====== Vistas ====== */
+
+    const viewInicio = () => `
+      <section class="hero p-10 md:p-16 text-center">
+        <h2 class="text-3xl md:text-5xl font-montserrat font-extrabold mb-3">👋 ¡Hola, ${window.usuario?.empresa || window.usuario?.nombre || 'Empresa'}!</h2>
+        <p class="max-w-2xl mx-auto text-white/90 text-lg">Bienvenida a Talent Bridge Empresas. Publica tus vacantes y encuentra talento en minutos.</p>
+        <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+          <a href="#/vacantes" class="bg-white text-[var(--primary)] font-semibold px-8 py-3 rounded-full shadow hover:bg-opacity-90 transition"><i class="fa-solid fa-briefcase"></i> Crear Vacante</a>
+          <a href="#/candidatos" class="border border-white/40 text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition"><i class="fa-solid fa-users"></i> Ver Candidatos</a>
+        </div>
+      </section>
+
+      ${Card({
+        title:"Resumen",
+        body:`
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="glass-card p-8 text-center">
+              <div class="text-5xl text-[var(--secondary)] mb-3"><i class="fa-solid fa-briefcase"></i></div>
+              <h4 class="font-semibold text-[var(--primary)] dark:text-white mb-1">Vacantes Activas</h4>
+              <p class="text-4xl font-extrabold" id="resActivas">0</p>
+            </div>
+            <div class="glass-card p-8 text-center">
+              <div class="text-5xl text-[var(--primary)] dark:text-[var(--secondary)] mb-3"><i class="fa-solid fa-user-plus"></i></div>
+              <h4 class="font-semibold text-[var(--primary)] dark:text-white mb-1">Candidatos Nuevos</h4>
+              <p class="text-4xl font-extrabold" id="resNuevos">0</p>
+            </div>
+            <div class="glass-card p-8 text-center">
+              <div class="text-5xl text-[var(--secondary)] mb-3"><i class="fa-solid fa-gem"></i></div>
+              <h4 class="font-semibold text-[var(--primary)] dark:text-white mb-1">Plan</h4>
+              <p class="text-lg font-semibold">${isPremium() ? 'Premium Activo' : 'Gratuito'}</p>
+            </div>
+          </div>
+        `
+      })}
+
+      ${Card({
+        title:"Acciones rápidas",
+        body:`
+          <div class="flex gap-3 flex-wrap">
+            <a href="#/vacantes" class="px-4 py-2 rounded-xl bg-[var(--primary)] text-white"><i class="fa-solid fa-circle-plus"></i> Nueva vacante</a>
+            <a href="#/premium" class="px-4 py-2 rounded-xl ${isPremium()?'bg-amber-400 text-[var(--primary)] font-bold':'bg-gray-200 dark:bg-slate-700 text-gray-800 dark:text-gray-200'}"><i class="fa-solid ${isPremium()?'fa-wand-magic-sparkles':'fa-lock'}"></i> IA de Afinidad</a>
+          </div>
+        `
+      })}
+    `;
+
+    const viewVacantes = () => {
+      const vacs = loadVacantes();
+      const filtros = `
+        <div class="glass-card p-4">
+          <div class="grid md:grid-cols-4 gap-3 items-end">
+            <div class="md:col-span-2">
+              <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Buscar</label>
+              <input id="f_query" placeholder="Puesto, ciudad, tag..." class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none" />
+            </div>
+            <div>
+              <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Estado</label>
+              <select id="f_estado" class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3">
+                <option value="">Todos</option>
+                <option value="activa">Activa</option>
+                <option value="inactiva">Inactiva</option>
+              </select>
+            </div>
+            <div class="flex gap-2">
+              <button id="btnFiltrar" class="w-full rounded-xl bg-[var(--primary)] text-white px-4 py-3"><i class="fa-solid fa-filter"></i> Filtrar</button>
+              <button id="btnNueva" class="w-full rounded-xl bg-emerald-600 text-white px-4 py-3"><i class="fa-solid fa-circle-plus"></i> Nueva</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const tabla = `
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="text-left text-gray-600 dark:text-gray-300">
+              <tr>
+                <th class="py-2 pr-2">Puesto</th>
+                <th class="py-2 pr-2">Ciudad</th>
+                <th class="py-2 pr-2">Modalidad</th>
+                <th class="py-2 pr-2">Estado</th>
+                <th class="py-2 pr-2">Candidatos</th>
+                <th class="py-2 pr-2"></th>
+              </tr>
+            </thead>
+            <tbody id="vacTableBody"></tbody>
+          </table>
+        </div>
+      `;
+
+      return `
+        ${Card({ title:"Mis Vacantes", body:filtros })}
+        ${Card({ title:"Listado", body:tabla, classes:"mt-4"})}
+      `;
+    };
+
+    const viewCandidatos = () => {
+      const vacs = loadVacantes();
+      const options = vacs.map(v => `<option value="${v.id}">${v.puesto}</option>`).join('');
+      const filtros = `
+        <div class="glass-card p-4">
+          <div class="grid md:grid-cols-4 gap-3 items-end">
+            <div class="md:col-span-2">
+              <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Vacante</label>
+              <select id="candVac" class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3">
+                <option value="">Todas</option>
+                ${options}
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Orden</label>
+              <select id="candOrden" class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3">
+                <option value="recientes">Más recientes</option>
+                <option value="afinidad">Por afinidad (IA)</option>
+              </select>
+            </div>
+            <div>
+              <button id="btnCandFiltrar" class="w-full rounded-xl ${isPremium()?'bg-[var(--primary)] text-white':'bg-gray-200 dark:bg-slate-700 text-gray-800 dark:text-gray-200'} px-4 py-3 flex items-center justify-center gap-2">
+                <i class="fa-solid ${isPremium()?'fa-filter':'fa-lock'}"></i>
+                <span>Aplicar</span>
+              </button>
+            </div>
+            ${!isPremium() ? `<p class="md:col-span-4 text-xs text-gray-500 dark:text-gray-400">El orden por afinidad requiere <strong>Premium</strong>.</p>` : ''}
+          </div>
+        </div>
+      `;
+      const lista = `<div id="candList" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-4"></div>`;
+      return `
+        ${Card({ title:"Candidatos", body:filtros })}
+        ${Card({ title:"Resultados", body:lista, classes:"mt-4" })}
+      `;
+    };
+
+    const viewPerfil = () => {
+      const data = loadEmpresaPerfil();
+      return `
+        ${Card({
+          title:"Perfil de Empresa",
+          body:`
+            <form class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Nombre de la empresa</label>
+                <input id="e_nombre" value="${escapeHtml(window.usuario?.empresa||window.usuario?.nombre||'')}" class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none" />
+              </div>
+              <div>
+                <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Email de contacto</label>
+                <input id="e_email" value="${escapeHtml(window.usuario?.email||'')}" class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none" />
+              </div>
+              <div class="md:col-span-2">
+                <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Sector</label>
+                <input id="e_sector" value="${escapeHtml(data.sector||'Tecnología')}" class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none" />
+              </div>
+              <div class="md:col-span-2">
+                <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Descripción</label>
+                <textarea id="e_desc" rows="4" class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none">${escapeHtml(data.desc||'')}</textarea>
+              </div>
+              <div class="md:col-span-2 flex gap-2">
+                <button type="button" id="e_guardar" class="px-4 py-2 rounded-xl bg-[var(--primary)] text-white">Guardar</button>
+                <button type="button" id="e_cancelar" class="px-4 py-2 rounded-xl border border-[var(--primary)] text-[var(--primary)] dark:border-white dark:text-white">Cancelar</button>
+              </div>
+            </form>
+          `
+        })}
+      `;
+    };
+
+    const viewPremium = () => `
+      ${Card({
+        title:"Plan Premium Empresas",
+        body:`
+          <div class="grid md:grid-cols-2 gap-4">
+            <div class="glass-card p-5">
+              <h4 class="font-semibold text-[var(--primary)] dark:text-white mb-2">Tu estado</h4>
+              <p class="text-sm">${isPremium() ? 'Tienes Premium activo ✅' : 'Estás en plan Gratuito'}</p>
+              <div class="mt-3 flex gap-2">
+                ${isPremium()
+                  ? `<button id="btnPremiumOff" class="px-4 py-2 rounded-xl border border-gray-300 dark:border-white/20">Desactivar</button>`
+                  : `<button id="btnPremiumOn" class="px-4 py-2 rounded-xl bg-gradient-to-r from-[var(--secondary)] to-yellow-400 text-[var(--primary)] font-bold">Activar Premium</button>`
+                }
+              </div>
+            </div>
+            <div class="glass-card p-5">
+              <h4 class="font-semibold text-[var(--primary)] dark:text-white mb-2">Beneficios</h4>
+              <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1">
+                <li>Ranking de candidatos por afinidad</li>
+                <li>Vacantes destacadas y mayor alcance</li>
+                <li>Filtros avanzados y exportación</li>
+              </ul>
+            </div>
+          </div>
+        `
+      })}
+    `;
+
+    /* ===== Ruteo ===== */
+    const routes = {
+      '#/inicio':   { title:'Panel de la Empresa', render:viewInicio },
+      '#/vacantes': { title:'Mis Vacantes',        render:viewVacantes },
+      '#/candidatos':{title:'Candidatos',          render:viewCandidatos },
+      '#/perfil':   { title:'Perfil Empresa',      render:viewPerfil },
+      '#/premium':  { title:'Premium',             render:viewPremium },
+    };
+
+    function setActiveLink(hash){
+      sideNav.querySelectorAll('a[data-route]').forEach(a=>{
+        a.classList.toggle('active', a.getAttribute('data-route')===hash);
+      });
+    }
+    function closeSidebarIfMobile(){ if (window.matchMedia("(max-width: 767px)").matches) closeSidebar(); }
+
+    function router(){
+      const hash = location.hash || '#/inicio';
+      const route = routes[hash] || routes['#/inicio'];
+      headerTitleEl.textContent = route.title;
+      app.innerHTML = route.render();
+      refreshPremiumBadge();
+
+      if (hash==='#/inicio'){
+        const vacs=loadVacantes();
+        const activas=vacs.filter(v=>v.activa).length;
+        const nuevos=vacs.reduce((acc,v)=> acc + (v.candidatos||[]).filter(c=>c.estado==='nuevo').length,0);
+        const elA=document.getElementById('resActivas');
+        const elN=document.getElementById('resNuevos');
+        if (elA) elA.textContent = activas;
+        if (elN) elN.textContent = nuevos;
+      }
+
+      if (hash==='#/vacantes'){
+        renderVacantesTable(loadVacantes());
+        document.getElementById('btnNueva').addEventListener('click', ()=> openVacanteModal());
+        document.getElementById('btnFiltrar').addEventListener('click', ()=>{
+          const q = (document.getElementById('f_query').value||'').toLowerCase();
+          const est = document.getElementById('f_estado').value;
+          let list = loadVacantes().filter(v=>{
+            const hayQ = !q || [v.puesto,v.ciudad,v.modalidad,(v.tags||[]).join(','),(v.carreras||[]).join(',')].join(' ').toLowerCase().includes(q);
+            const hayE = !est || (est==='activa'? v.activa : !v.activa);
+            return hayQ && hayE;
+          });
+          renderVacantesTable(list);
+        });
+      }
+
+      if (hash==='#/candidatos'){
+        const btn = document.getElementById('btnCandFiltrar');
+        const selectOrden = document.getElementById('candOrden');
+        btn.addEventListener('click', ()=>{
+          const vacId = document.getElementById('candVac').value;
+          const orden = selectOrden.value;
+          if (orden==='afinidad' && !isPremium()){ openPaywall(); return; }
+          renderCandidatos(vacId, orden);
+        });
+        // primera carga
+        renderCandidatos('', 'recientes');
+      }
+
+      if (hash==='#/perfil'){
+        document.getElementById('e_guardar').onclick = ()=>{
+          const e = {
+            sector: document.getElementById('e_sector').value.trim(),
+            desc: document.getElementById('e_desc').value.trim(),
+          };
+          saveEmpresaPerfil(e);
+          // actualiza visible
+          const nombre = document.getElementById('e_nombre').value.trim();
+          const email  = document.getElementById('e_email').value.trim();
+          window.usuario = { ...window.usuario, empresa:nombre || window.usuario.empresa, nombre:nombre || window.usuario.nombre, email };
+          localStorage.setItem('usuarioActivo', JSON.stringify(window.usuario));
+          document.getElementById("navCompanyName").textContent = window.usuario.empresa || window.usuario.nombre || '';
+          document.getElementById("navCompanyEmail").textContent = window.usuario.email || '';
+          alert('Perfil actualizado ✔');
+        };
+        document.getElementById('e_cancelar').onclick = ()=> router();
+      }
+
+      if (hash==='#/premium'){
+        document.getElementById('btnPremiumOn')?.addEventListener('click', ()=> setPremium(true));
+        document.getElementById('btnPremiumOff')?.addEventListener('click', ()=> setPremium(false));
+      }
+
+      setActiveLink(hash);
+      closeSidebarIfMobile();
+    }
+
+    sideNav.addEventListener('click', (e)=>{
+      const a = e.target.closest('a[data-route]'); if (a && window.matchMedia("(max-width: 767px)").matches) closeSidebar();
+    });
+    window.addEventListener('hashchange', router);
+    window.addEventListener('load', ()=>{ if(!location.hash) location.hash='#/inicio'; router(); });
+
+    /* ====== Render helpers ====== */
+    function renderVacantesTable(list){
+      const tb = document.getElementById('vacTableBody'); if(!tb) return;
+      if (!list.length){ tb.innerHTML = `<tr><td colspan="6" class="py-6 text-center text-gray-600 dark:text-gray-300">Sin vacantes aún. Crea la primera.</td></tr>`; return; }
+      tb.innerHTML = list.map(v=>`
+        <tr class="job-row">
+          <td class="py-2 pr-2 font-medium text-[var(--primary)] dark:text-white">${escapeHtml(v.puesto)}</td>
+          <td class="py-2 pr-2">${escapeHtml(v.ciudad||'-')}</td>
+          <td class="py-2 pr-2">${escapeHtml(v.modalidad||'-')}</td>
+          <td class="py-2 pr-2">${v.activa? '<span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200 text-xs">Activa</span>' : '<span class="px-2 py-0.5 rounded-full bg-gray-200 text-gray-800 dark:bg-white/10 dark:text-gray-200 text-xs">Inactiva</span>'}</td>
+          <td class="py-2 pr-2">${(v.candidatos||[]).length}</td>
+          <td class="py-2 pr-2">
+            <div class="flex gap-2">
+              <button class="px-3 py-1 rounded-lg border border-[var(--primary)] text-[var(--primary)] dark:border-white dark:text-white text-xs" data-edit="${v.id}">Editar</button>
+              <button class="px-3 py-1 rounded-lg bg-red-600 text-white text-xs" data-del="${v.id}">Eliminar</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+
+      tb.querySelectorAll('button[data-edit]').forEach(b=> b.addEventListener('click', ()=> openVacanteModal(b.getAttribute('data-edit'))));
+      tb.querySelectorAll('button[data-del]').forEach(b=> b.addEventListener('click', ()=>{
+        const id = b.getAttribute('data-del');
+        const all = loadVacantes().filter(v=> v.id!==id);
+        saveVacantes(all); renderVacantesTable(all);
+      }));
+    }
+
+    function renderCandidatos(vacId, orden){
+      const cont = document.getElementById('candList'); if(!cont) return;
+      let vacs = loadVacantes();
+      let candidatos = [];
+      if (vacId){ const v = vacs.find(x=>x.id===vacId); if (v) candidatos = v.candidatos||[]; }
+      else candidatos = vacs.flatMap(v => (v.candidatos||[]).map(c=> ({...c, _vac:v.id, _puesto:v.puesto})));
+
+      if (orden==='afinidad'){
+        if (!isPremium()) { openPaywall(); return; }
+        candidatos = [...candidatos].sort((a,b)=> (b.match||0)-(a.match||0));
+      } else {
+        candidatos = [...candidatos].reverse(); // como recientes
+      }
+
+      if (!candidatos.length){ cont.innerHTML = `<p class="text-sm text-gray-600 dark:text-gray-300">No hay candidatos que mostrar.</p>`; return; }
+
+      cont.innerHTML = candidatos.map(c=>`
+        <div class="glass-card p-5">
+          <div class="flex items-start justify-between">
+            <div>
+              <h4 class="font-semibold text-[var(--primary)] dark:text-white">${escapeHtml(c.nombre)}</h4>
+              <p class="text-sm text-gray-600 dark:text-gray-300">${escapeHtml(c.carrera)} · ${escapeHtml(c.ciudad||'-')}</p>
+              ${c._puesto? `<p class="text-xs mt-1 text-gray-500">Aplicó a: <strong>${escapeHtml(c._puesto)}</strong></p>`:''}
+            </div>
+            ${typeof c.match==='number' ? `<span class="text-xs px-2 py-1 rounded-full ${c.match>=80?'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200':'bg-gray-100 text-gray-700 dark:bg-white/10 dark:text-gray-200'}">Match ${c.match}%</span>`:''}
+          </div>
+          <div class="mt-3 flex flex-wrap gap-2">
+            ${(c.skills||[]).map(s=>`<span class="text-xs px-2 py-1 rounded-full bg-white/60 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10">${escapeHtml(s)}</span>`).join('')}
+          </div>
+          <div class="mt-4 flex gap-2">
+            <button class="px-3 py-1 rounded-lg bg-[var(--primary)] text-white text-sm">Ver CV</button>
+            <button class="px-3 py-1 rounded-lg border border-[var(--primary)] text-[var(--primary)] dark:border-white dark:text-white text-sm">Contactar</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    /* ===== Paywall ===== */
+    const paywallEl = document.getElementById('paywall');
+    function openPaywall(){ paywallEl.classList.remove('hidden'); }
+    function closePaywall(){ paywallEl.classList.add('hidden'); }
+    document.getElementById('paywallClose').addEventListener('click', closePaywall);
+    document.getElementById('paywallLater').addEventListener('click', closePaywall);
+    document.getElementById('paywallActivate').addEventListener('click', ()=>{ setPremium(true); closePaywall(); if (location.hash==='#/candidatos') router(); });
+
+    /* ===== Vacante Modal ===== */
+    const vacanteModal = document.getElementById('vacanteModal');
+    const vacanteOverlay = document.getElementById('vacanteOverlay');
+    const vacanteClose = document.getElementById('vacanteClose');
+    const vacanteCancel = document.getElementById('vacanteCancel');
+    const vacanteForm = document.getElementById('vacanteForm');
+    const vacanteTitle = document.getElementById('vacanteModalTitle');
+    let currentVacId = null;
+
+    function openVacanteModal(id=null){
+      currentVacId = id;
+      const v = id? loadVacantes().find(x=>x.id===id) : null;
+      vacanteTitle.textContent = id? 'Editar Vacante' : 'Nueva Vacante';
+      document.getElementById('v_puesto').value = v?.puesto||'';
+      document.getElementById('v_ciudad').value = v?.ciudad||'';
+      document.getElementById('v_modalidad').value = v?.modalidad||'Híbrido';
+      document.getElementById('v_carreras').value = (v?.carreras||[]).join(', ');
+      document.getElementById('v_tags').value = (v?.tags||[]).join(', ');
+      document.getElementById('v_desc').value = v?.desc||'';
+      document.getElementById('v_activa').checked = !!v?.activa;
+      vacanteModal.classList.remove('hidden');
+    }
+    function closeVacanteModal(){ vacanteModal.classList.add('hidden'); currentVacId=null; }
+    vacanteOverlay.addEventListener('click', closeVacanteModal);
+    vacanteClose.addEventListener('click', closeVacanteModal);
+    vacanteCancel.addEventListener('click', closeVacanteModal);
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && !vacanteModal.classList.contains('hidden')) closeVacanteModal(); });
+
+    vacanteForm.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = {
+        id: currentVacId || (crypto.randomUUID?.() || String(Date.now())),
+        puesto: document.getElementById('v_puesto').value.trim(),
+        ciudad: document.getElementById('v_ciudad').value.trim(),
+        modalidad: document.getElementById('v_modalidad').value,
+        carreras: (document.getElementById('v_carreras').value||'').split(',').map(s=>s.trim()).filter(Boolean),
+        tags: (document.getElementById('v_tags').value||'').split(',').map(s=>s.trim()).filter(Boolean),
+        desc: document.getElementById('v_desc').value.trim(),
+        activa: document.getElementById('v_activa').checked,
+      };
+      let all = loadVacantes();
+      if (currentVacId){
+        all = all.map(v=> v.id===currentVacId ? { ...data, candidatos: v.candidatos||defaultApplicants() } : v);
+      } else {
+        data.candidatos = defaultApplicants(); // demo: al crear, simula candidatos
+        all.unshift(data);
+      }
+      saveVacantes(all);
+      closeVacanteModal();
+      if (location.hash==='#/vacantes') renderVacantesTable(all);
+      else location.hash = '#/vacantes';
+    });
+
+    /* ===== Perfil empresa (extra storage) ===== */
+    function perfilEmpKey(){
+      const id = window.usuario?.email || window.usuario?.nombre || 'empresa';
+      return `empresaPerfil_${id}`;
+    }
+    function loadEmpresaPerfil(){ try { return JSON.parse(localStorage.getItem(perfilEmpKey())||'{}'); } catch { return {}; } }
+    function saveEmpresaPerfil(d){ localStorage.setItem(perfilEmpKey(), JSON.stringify(d||{})); }
+
+    /* ===== Helpers ===== */
+    function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;' }[m])); }
+
+  </script>
+</body>
+</html>

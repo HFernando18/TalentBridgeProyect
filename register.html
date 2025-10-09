@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Registro | Talent Bridge</title>
+  <meta name="description" content="Regístrate en Talent Bridge para acceder a pasantías seguras, publicar vacantes o gestionar prácticas universitarias.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@500;600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body class="font-opensans bg-gradient-to-r from-primary to-secondary min-h-screen flex flex-col">
+
+  <!-- NAV -->
+  <nav class="bg-white/80 backdrop-blur sticky top-0 z-50 border-b border-slate-100">
+    <div class="mx-auto max-w-7xl px-6 lg:px-10 h-16 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="img/logo/Talent_Bridge_FH_Final.svg" alt="Talent Bridge" class="h-12" />
+        <span class="font-poppins font-semibold text-primary hidden sm:inline">Talent Bridge</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- REGISTRO -->
+  <main class="flex items-center justify-center min-h-screen px-6 py-4 bg-gradient-to-r from-primary to-secondary">
+    <div class="bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl w-full max-w-2xl p-10 space-y-8 transition-all duration-300">
+
+      <!-- Encabezado -->
+      <div class="text-center">
+        <img src="img/icons/register.svg" alt="Register Icon" class="h-20 mx-auto opacity-90" />
+        <h1 class="mt-4 text-2xl font-montserrat font-extrabold text-primary">Crea tu cuenta</h1>
+        <p class="text-sm text-gray-600">Selecciona el tipo de cuenta e ingresa tus datos</p>
+      </div>
+
+      <!-- Interruptor mejorado -->
+      <div class="relative bg-slate-200 rounded-full flex justify-between items-center p-1 text-sm font-poppins overflow-hidden group">
+        <span id="indicator" class="absolute top-1 left-1 h-[calc(100%-0.5rem)] w-1/3 rounded-full bg-secondary opacity-80 shadow-md transition-all duration-300 ease-in-out"></span>
+
+        <button id="btnEstudiante" class="tab-btn flex-1 py-2 relative z-10 text-primary font-semibold transition">
+          Estudiante
+        </button>
+        <button id="btnEmpresa" class="tab-btn flex-1 py-2 relative z-10 text-gray-700 hover:text-primary transition">
+          Empresa
+        </button>
+        <button id="btnUniversidad" class="tab-btn flex-1 py-2 relative z-10 text-gray-700 hover:text-primary transition">
+          Universidad
+        </button>
+      </div>
+
+      <!-- Formularios -->
+      <div id="formContainer" class="mt-6">
+
+        <!-- FORMULARIO ESTUDIANTE -->
+        <form id="formEstudiante" class="space-y-5" autocomplete="on">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Nombre completo</label>
+              <input id="nombreEstudiante" type="text" placeholder="Juan Pérez" required autocomplete="name"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700">Correo institucional</label>
+              <input id="emailEstudiante" type="email" placeholder="juan@universidad.edu.ec" required autocomplete="email"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" />
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Universidad</label>
+            <input id="universidadEstudiante" type="text" placeholder="Universidad de Guayaquil" required autocomplete="organization"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Carrera</label>
+            <input type="text" placeholder="Ingeniería en Software" required autocomplete="off"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Contraseña</label>
+            <input id="passwordEstudiante" type="password" placeholder="********" required autocomplete="new-password"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" />
+          </div>
+          <button type="submit"
+            class="w-full bg-primary text-white font-poppins font-semibold py-3 rounded-lg hover:bg-opacity-90 transition">Registrarme</button>
+        </form>
+
+        <!-- FORMULARIO EMPRESA -->
+        <form id="formEmpresa" class="hidden space-y-5" autocomplete="on">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Nombre de la empresa</label>
+            <input id="nombreEmpresa" type="text" placeholder="Tech Solutions S.A." required autocomplete="organization"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Correo corporativo</label>
+            <input id="emailEmpresa" type="email" placeholder="contacto@empresa.com" required autocomplete="email"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">RUC o identificación fiscal</label>
+            <input type="text" placeholder="0999999999001" required autocomplete="off"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Contraseña</label>
+            <input id="passwordEmpresa" type="password" placeholder="********" required autocomplete="new-password"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" />
+          </div>
+          <button type="submit"
+            class="w-full bg-primary text-white font-poppins font-semibold py-3 rounded-lg hover:bg-opacity-90 transition">Registrar empresa</button>
+        </form>
+
+        <!-- FORMULARIO UNIVERSIDAD -->
+        <form id="formUniversidad" class="hidden space-y-5" autocomplete="on">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Nombre de la universidad</label>
+            <input id="nombreUniversidad" type="text" placeholder="Universidad Espíritu Santo" required autocomplete="organization"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Correo institucional</label>
+            <input id="emailUniversidad" type="email" placeholder="rectorado@universidad.edu.ec" required autocomplete="email"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Código de convenio (opcional)</label>
+            <input type="text" placeholder="TB-CONVENIO-2025" autocomplete="off"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Contraseña</label>
+            <input id="passwordUniversidad" type="password" placeholder="********" required autocomplete="new-password"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary" />
+          </div>
+          <button type="submit"
+            class="w-full bg-primary text-white font-poppins font-semibold py-3 rounded-lg hover:bg-opacity-90 transition">Registrar universidad</button>
+        </form>
+      </div>
+
+      <!-- Divider -->
+      <div id="divider" class="flex items-center gap-3">
+        <hr class="flex-1 border-gray-300">
+        <span class="text-sm text-gray-500">o continúa con</span>
+        <hr class="flex-1 border-gray-300">
+      </div>
+
+      <!-- Botones sociales -->
+      <div id="socialButtons" class="grid gap-3">
+        <button class="flex items-center justify-center gap-3 w-full bg-white border border-gray-300 rounded-lg py-3 shadow hover:bg-gray-50 transition">
+          <img src="img/icons/google.svg" alt="Google" class="h-5 w-5">
+          <span class="text-gray-700 font-medium">Registrarse con Google</span>
+        </button>
+        <button class="flex items-center justify-center gap-3 w-full bg-white border border-gray-300 rounded-lg py-3 shadow hover:bg-gray-50 transition">
+          <img src="img/icons/microsoft.svg" alt="Microsoft" class="h-5 w-5">
+          <span class="text-gray-700 font-medium">Registrarse con Microsoft</span>
+        </button>
+      </div>
+
+      <!-- Iniciar sesión -->
+      <p class="text-center text-sm text-gray-600">
+        ¿Ya tienes cuenta?
+        <a href="login.html" class="text-primary font-semibold hover:text-secondary">Inicia sesión aquí</a>
+      </p>
+    </div>
+  </main>
+
+  <script src="JS/auth.js"></script>
+<script>
+// --- VARIABLES Y ELEMENTOS DEL DOM ---
+var tabs = document.querySelectorAll(".tab-btn");
+var indicator = document.getElementById("indicator");
+
+var forms = {
+  estudiante: document.getElementById("formEstudiante"),
+  empresa: document.getElementById("formEmpresa"),
+  universidad: document.getElementById("formUniversidad")
+};
+
+var socialButtons = document.getElementById("socialButtons");
+var divider = document.getElementById("divider");
+var formContainer = document.getElementById("formContainer");
+
+var tipo = "estudiante"; // Tipo activo por defecto
+
+// --- CAMBIO DE TIPO DE CUENTA ---
+tabs.forEach(function(btn, index){
+  btn.addEventListener("click", function(){
+    tabs.forEach(function(t){ t.classList.remove("text-primary", "font-semibold"); });
+    btn.classList.add("text-primary", "font-semibold");
+    indicator.style.transform = "translateX(" + (index * 100) + "%)";
+
+    if (btn.id === "btnEstudiante") { tipo = "estudiante"; }
+    else if (btn.id === "btnEmpresa") { tipo = "empresa"; }
+    else { tipo = "universidad"; }
+
+    formContainer.classList.add("opacity-0","transition","duration-300");
+
+    setTimeout(function(){
+      Object.values(forms).forEach(function(form){ form.classList.add("hidden"); });
+      forms[tipo].classList.remove("hidden");
+
+      if (tipo === "estudiante") {
+        socialButtons.style.display = "grid";
+        divider.classList.remove("hidden");
+      } else {
+        socialButtons.style.display = "none";
+        divider.classList.add("hidden");
+      }
+
+      setTimeout(function(){ formContainer.classList.remove("opacity-0"); }, 100);
+    }, 200);
+  });
+});
+
+// --- Toast simple sin template literals ---
+function showToast(message, type){
+  if (!type) type = "success";
+  var toast = document.createElement("div");
+  toast.className = "toast " + type;
+
+  var svgOk = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />';
+  var svgErr = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
+  var icon = (type === "success") ? svgOk : svgErr;
+
+  toast.innerHTML =
+    '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">'
+      + icon +
+    '</svg>' +
+    '<span>' + message + '</span>';
+
+  document.body.appendChild(toast);
+  setTimeout(function(){ toast.classList.add("show"); }, 100);
+  setTimeout(function(){
+    toast.classList.remove("show");
+    setTimeout(function(){ toast.remove(); }, 400);
+  }, 3000);
+}
+
+// --- REGISTRO ---
+document.querySelectorAll("form").forEach(function(form){
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    var btn = form.querySelector("button[type='submit']");
+    var originalText = btn.innerHTML;
+
+    var email = form.querySelector("[id^='email']").value.trim();
+    var password = form.querySelector("[id^='password']").value.trim();
+    var nombre = form.querySelector("[id^='nombre']").value.trim();
+    var uniField = form.querySelector("[id^='universidad']");
+    var universidad = uniField ? uniField.value.trim() : "";
+
+    var nuevoUsuario = { email: email, password: password, nombre: nombre, tipo: tipo, universidad: universidad };
+
+    btn.innerHTML =
+      '<div class="flex items-center justify-center gap-2">' +
+        '<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">' +
+          '<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>' +
+          '<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>' +
+        '</svg>' +
+        '<span>Creando cuenta...</span>' +
+      '</div>';
+    btn.disabled = true;
+    btn.classList.add("opacity-80");
+
+    setTimeout(function(){
+      // addUser viene de JS/auth.js
+      var resultado = addUser(nuevoUsuario);
+      btn.innerHTML = originalText;
+      btn.disabled = false;
+
+      if (resultado.success) {
+        showToast("Cuenta creada correctamente. Puedes iniciar sesión", "success");
+        form.reset();
+        setTimeout(function(){ window.location.href = "login.html"; }, 2200);
+      } else {
+        showToast("⚠️ " + resultado.message, "error");
+      }
+    }, 2000);
+  });
+});
+</script>
+
+</body>
+</html>

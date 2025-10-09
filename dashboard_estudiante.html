@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Panel del Estudiante | Talent Bridge</title>
+
+  <!-- Tailwind & Icons -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Habilitar variantes dark por clase
+    tailwind.config = { darkMode: 'class' }
+  </script>
+  <script src="https://kit.fontawesome.com/a2d5d5a92f.js" crossorigin="anonymous"></script>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@500;600&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #00364d;
+      --secondary: #e9a50e;
+      --bg: #f9fafb;
+      --text: #1f2937;
+      --card: rgba(255,255,255,0.8);
+      --card-border: rgba(255,255,255,0.4);
+      --sidebar-bg: rgba(0, 54, 77, 0.9);
+      --sidebar-br: rgba(255,255,255,0.1);
+      --hero-grad-a: rgba(0,54,77,0.95);
+      --hero-grad-b: rgba(0,54,77,0.85);
+      --hero-grad-c: rgba(233,165,14,0.85);
+      --progress-track: rgba(0,54,77,0.1);
+    }
+
+    .dark {
+      --bg: #0b1220;
+      --text: #e5e7eb;
+      --card: rgba(16,23,42,0.7);
+      --card-border: rgba(255,255,255,0.08);
+      --sidebar-bg: rgba(3, 21, 32, 0.9);
+      --sidebar-br: rgba(255,255,255,0.06);
+      --hero-grad-a: rgba(2, 18, 30, 0.95);
+      --hero-grad-b: rgba(3, 31, 49, 0.9);
+      --hero-grad-c: rgba(233,165,14,0.8);
+      --progress-track: rgba(255,255,255,0.08);
+    }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Fondo animado */
+    .animated-bg {
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(233,165,14,0.05) 0%, transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(0,54,77,0.06) 0%, transparent 60%);
+      animation: moveBg 40s linear infinite alternate;
+      pointer-events: none;
+    }
+    .dark .animated-bg {
+      background:
+        radial-gradient(circle at 20% 80%, rgba(233,165,14,0.08) 0%, transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(0,54,77,0.1) 0%, transparent 60%);
+    }
+    @keyframes moveBg {
+      0% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.05) rotate(180deg); }
+      100% { transform: scale(1) rotate(360deg); }
+    }
+
+    /* Partículas */
+    .particles { position: fixed; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
+    .particle { position: absolute; border-radius: 50%; opacity: 0.7; filter: blur(1px); animation: floatParticle linear infinite; }
+    @keyframes floatParticle {
+      0% { transform: translateY(0) translateX(0); opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+    }
+
+    /* Sidebar */
+    .modern-sidebar {
+      background: var(--sidebar-bg);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid var(--sidebar-br);
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+      position: relative; overflow: hidden; transition: all 0.4s ease;
+    }
+    .modern-sidebar::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(233,165,14,0.06));
+      background-size: 100% 200%;
+      animation: gradientFlow 12s ease-in-out infinite alternate; z-index: 0;
+    }
+    @keyframes gradientFlow { 0% { background-position: 0 0; } 100% { background-position: 0 100%; } }
+    .modern-sidebar * { position: relative; z-index: 1; }
+    .modern-sidebar nav a {
+      display: flex; align-items: center; gap: 12px;
+      padding: 0.9rem 1.2rem; border-radius: 0.9rem; font-weight: 500;
+      color: rgba(255,255,255,0.85); transition: all 0.3s ease; position: relative; overflow: hidden;
+    }
+    .modern-sidebar nav a i { font-size: 1.1rem; color: rgba(255,255,255,0.8); transition: all 0.4s ease; }
+    .modern-sidebar nav a span { font-family: 'Poppins', sans-serif; transition: all 0.3s ease; }
+
+    .modern-sidebar nav a.active::before,
+    .modern-sidebar nav a:hover::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+      background: linear-gradient(180deg, var(--secondary), #fff);
+      border-radius: 0 4px 4px 0; opacity: 0.9;
+    }
+    .modern-sidebar nav a:hover { background: rgba(255,255,255,0.1); color: white; transform: translateX(4px); }
+    .modern-sidebar nav a:hover i { color: var(--secondary); transform: scale(1.1); }
+    .modern-sidebar nav a.active { background: rgba(255,255,255,0.15); color: white; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, var(--hero-grad-a), var(--hero-grad-b) 40%, var(--hero-grad-c) 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  left: -20%;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.07) 0%, transparent 70%);
+  animation: rotate 40s linear infinite;
+  /* 🔧 FIX: que no bloquee clics y quede detrás */
+  pointer-events: none;
+  z-index: 0;
+}
+/* (opcional) asegura que el contenido esté encima */
+.hero > * { position: relative; z-index: 1; }
+    @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    /* Cards y progreso */
+    .glass-card { background: var(--card); backdrop-filter: blur(20px); border: 1px solid var(--card-border); border-radius: 1.5rem; transition: all 0.3s ease; position: relative; z-index: 2; overflow: hidden; }
+    .glass-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--secondary), var(--primary)); }
+    .glass-card:hover { transform: translateY(-6px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+    .metric-value { font-family: 'Montserrat', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+    .progress-bar { background: var(--progress-track); border-radius: 9999px; overflow: hidden; }
+    .progress-bar-inner { background: linear-gradient(90deg, var(--secondary), var(--primary)); height: 8px; border-radius: 9999px; transition: width 0.4s ease; }
+
+    /* Header */
+    .header-blur { background: rgba(255,255,255,0.8); }
+    .dark .header-blur { background: rgba(2, 8, 23, 0.6); }
+
+    .badge-premium { font-size:.65rem; letter-spacing:.03em; }
+    .job-card.clickable { cursor: pointer; }
+  </style>
+</head>
+
+<body class="min-h-screen flex">
+  <div class="animated-bg"></div>
+  <div class="particles" id="particles"></div>
+
+  <!-- Sidebar (off-canvas en móvil, fijo en desktop). z-[70] para estar por encima del overlay -->
+  <aside
+    id="sidebar"
+    class="modern-sidebar fixed inset-y-0 left-0 w-72 flex flex-col justify-between z-[70]
+           transform transition-transform duration-300 ease-out
+           -translate-x-full md:translate-x-0"
+    aria-hidden="true"
+    aria-label="Navegación principal"
+  >
+    <div class="px-6 py-8 flex flex-col h-full">
+      <!-- Header móvil con botón cerrar -->
+      <div class="md:hidden flex items-center justify-between mb-4">
+        <div class="flex items-center gap-3">
+          <img src="img/logo/Talent_Bridge_FH_Final.svg" alt="Talent Bridge" class="h-8 w-auto">
+          <span class="text-white font-semibold">Menú</span>
+        </div>
+        <button id="closeSidebar" class="text-white/80 hover:text-white text-2xl" aria-label="Cerrar menú">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Logo (desktop) -->
+      <div class="hidden md:flex items-center gap-3 mb-6 border-b border-white/10 pb-4">
+        <img src="img/logo/Talent_Bridge_FH_Final.svg" alt="Talent Bridge" class="h-10 w-auto">
+        <h2 class="font-montserrat text-lg font-extrabold text-white tracking-wide">Talent Bridge</h2>
+      </div>
+
+      <!-- Avatar y datos -->
+      <div class="flex flex-col items-center text-center mb-8">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Avatar" class="w-16 h-16 rounded-full border-2 border-white/40 mb-2">
+        <h3 id="navUserName" class="text-white font-semibold text-lg"></h3>
+        <p id="navUserEmail" class="text-white/70 text-sm"></p>
+      </div>
+
+      <!-- Navegación -->
+      <nav class="flex-1 flex flex-col gap-1" id="sideNav">
+        <a href="#/inicio"       data-route="#/inicio" class="active"><i class="fa-solid fa-house"></i><span>Inicio</span></a>
+        <a href="#/bolsa"        data-route="#/bolsa"><i class="fa-solid fa-magnifying-glass"></i><span>Bolsa de Pasantías</span></a>
+        <a href="#/pasantias"    data-route="#/pasantias"><i class="fa-solid fa-briefcase"></i><span>Mis Pasantías</span></a>
+        <a href="#/certificados" data-route="#/certificados"><i class="fa-solid fa-certificate"></i><span>Certificados</span></a>
+        <a href="#/empresas"     data-route="#/empresas"><i class="fa-solid fa-building"></i><span>Empresas</span></a>
+        <a href="#/perfil"       data-route="#/perfil"><i class="fa-solid fa-user-gear"></i><span>Perfil</span></a>
+      </nav>
+    </div>
+
+    <div class="p-6 border-t border-white/10 flex items-center justify-end">
+      <button id="logout" class="bg-gradient-to-r from-[var(--secondary)] to-yellow-400 text-[var(--primary)] font-semibold py-2 px-4 rounded-xl hover:shadow-md transition-all flex items-center gap-2">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Cerrar sesión</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Overlay para móvil: queda por debajo del sidebar (z-[60]) pero por encima de header/contenido -->
+  <div
+    id="sidebarOverlay"
+    class="fixed inset-0 bg-black/40 backdrop-blur-md opacity-0 pointer-events-none hidden transition-opacity duration-300 z-[60] md:hidden"
+  ></div>
+
+  <!-- Contenido principal -->
+  <div class="flex-1 md:ml-72 flex flex-col relative z-10">
+    <header class="header-blur backdrop-blur sticky top-0 z-50 border-b border-gray-200 dark:border-white/10 p-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <button
+          id="menuBtn"
+          class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full
+                 text-[var(--primary)] dark:text-white ring-1 ring-inset ring-gray-300/70 dark:ring-white/10
+                 bg-white/80 dark:bg-slate-800/70"
+          aria-label="Abrir menú"
+          aria-controls="sidebar"
+          aria-expanded="false"
+          type="button"
+        >
+          <!-- Ícono hamburguesa con SVG inline, 100% confiable -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+               width="22" height="22" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+               aria-hidden="true" focusable="false">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <h1 class="flex items-center gap-2 text-xl font-montserrat font-extrabold tracking-tight text-[var(--primary)] dark:text-white">
+          <span id="headerTitle">Panel del Estudiante</span>
+          <span id="premiumBadge" class="badge-premium hidden px-2 py-0.5 rounded-full bg-yellow-400/80 text-[var(--primary)] font-bold">PREMIUM</span>
+        </h1>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button
+          id="themeToggle"
+          type="button"
+          aria-label="Cambiar tema"
+          aria-pressed="false"
+          class="relative inline-flex items-center justify-center w-10 h-10 rounded-full
+                 ring-1 ring-inset ring-gray-200 dark:ring-white/10 bg-white/70 dark:bg-slate-800/70
+                 transition hover:scale-105 focus:outline-none focus-visible:ring-2
+                 focus-visible:ring-offset-2 focus-visible:ring-[var(--secondary)]"
+        >
+          <!-- SOL (se muestra en modo claro) -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            class="w-5 h-5 text-yellow-400 dark:hidden"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="4"></circle>
+            <line x1="12" y1="2" x2="12" y2="4"></line>
+            <line x1="12" y1="20" x2="12" y2="22"></line>
+            <line x1="4.93" y1="4.93" x2="6.34" y2="6.34"></line>
+            <line x1="17.66" y1="17.66" x2="19.07" y2="19.07"></line>
+            <line x1="2" y1="12" x2="4" y2="12"></line>
+            <line x1="20" y1="12" x2="22" y2="12"></line>
+            <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"></line>
+            <line x1="17.66" y1="6.34" x2="19.07" y2="4.93"></line>
+          </svg>
+
+          <!-- LUNA (se muestra en modo oscuro) -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            class="w-5 h-5 text-yellow-300 hidden dark:inline"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- SPA -->
+    <main id="app" class="p-8 space-y-12"></main>
+  </div>
+
+  <!-- Paywall Premium -->
+  <div id="paywall" class="fixed inset-0 z-[80] hidden">
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+    <div class="relative z-[81] max-w-xl mx-auto mt-24 p-6 rounded-2xl border border-white/10 bg-white/90 dark:bg-slate-900/80">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-xl font-montserrat font-extrabold text-[var(--primary)] dark:text-white">Desbloquea IA de afinidad</h3>
+        <button id="paywallClose" class="text-gray-600 dark:text-gray-300 hover:opacity-80">
+          <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+      </div>
+      <p class="text-sm text-gray-700 dark:text-gray-300 mb-4">
+        Con <strong>Talent Bridge Premium</strong> ordenamos las vacantes según tu perfil (titular, habilidades y experiencia) para mostrarte primero las mejores coincidencias.
+      </p>
+      <ul class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1 mb-5">
+        <li>Recomendaciones personalizadas con IA</li>
+        <li>Alertas de vacantes prioritarias</li>
+        <li>Visibilidad destacada frente a empresas</li>
+      </ul>
+      <div class="flex flex-col sm:flex-row gap-3 sm:justify-end">
+        <button id="paywallLater" class="px-4 py-2 rounded-xl border border-gray-300 dark:border-white/20 text-gray-800 dark:text-gray-200">Más tarde</button>
+        <button id="paywallActivate" class="px-4 py-2 rounded-xl bg-gradient-to-r from-[var(--secondary)] to-yellow-400 text-[var(--primary)] font-bold">Activar Premium</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Detalle de Pasantía -->
+  <div id="jobModal" class="fixed inset-0 z-[85] hidden">
+    <div id="jobModalOverlay" class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+    <div class="relative z-[86] max-w-2xl mx-auto mt-16 p-6 rounded-2xl border border-white/10 bg-white/95 dark:bg-slate-900/85">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h3 id="jobModalTitle" class="text-2xl font-montserrat font-extrabold text-[var(--primary)] dark:text-white"></h3>
+          <p id="jobModalSub" class="text-sm text-gray-700 dark:text-gray-300 mt-1"></p>
+        </div>
+        <button id="jobModalClose" class="text-gray-600 dark:text-gray-300 hover:opacity-80">
+          <i class="fa-solid fa-xmark text-2xl"></i>
+        </button>
+      </div>
+
+      <div id="jobModalTags" class="mt-4 flex flex-wrap gap-2"></div>
+
+      <div class="mt-5 grid md:grid-cols-3 gap-4">
+        <div class="md:col-span-2">
+          <h4 class="font-semibold text-[var(--primary)] dark:text-white mb-2">Descripción</h4>
+          <p id="jobModalDesc" class="text-sm text-gray-700 dark:text-gray-300"></p>
+
+          <h4 class="mt-4 font-semibold text-[var(--primary)] dark:text-white mb-2">Requisitos</h4>
+          <ul id="jobModalReq" class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1"></ul>
+        </div>
+        <div>
+          <h4 class="font-semibold text-[var(--primary)] dark:text-white mb-2">Beneficios</h4>
+          <ul id="jobModalBen" class="list-disc pl-5 text-sm text-gray-700 dark:text-gray-300 space-y-1"></ul>
+        </div>
+      </div>
+
+      <div class="mt-6 flex flex-col sm:flex-row gap-3 sm:justify-end">
+        <button id="jobModalCancel" class="px-4 py-2 rounded-xl border border-gray-300 dark:border-white/20 text-gray-800 dark:text-gray-200">Cerrar</button>
+        <button id="jobModalApply" class="px-4 py-2 rounded-xl bg-[var(--primary)] text-white font-semibold">Postular</button>
+      </div>
+      <p id="jobModalMsg" class="mt-3 text-sm hidden"></p>
+    </div>
+  </div>
+
+  <script>
+    // === Preferencia inicial del tema ===
+    (function initTheme(){
+      const stored = localStorage.getItem('tb-theme');
+      const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const initialDark = stored ? stored === 'dark' : systemPrefersDark;
+      document.documentElement.classList.toggle('dark', initialDark);
+      queueMicrotask(() => {
+        const t = document.getElementById('themeToggle');
+        if (t) {
+          t.setAttribute('aria-pressed', String(initialDark));
+          t.setAttribute('aria-label', initialDark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro');
+        }
+      });
+    })();
+
+    // === Datos de usuario y seguridad ===
+    window.usuario = JSON.parse(localStorage.getItem("usuarioActivo"));
+    if (!window.usuario || window.usuario.tipo !== "estudiante") {
+      window.location.href = "login.html";
+    } else {
+      document.getElementById("navUserName").textContent = window.usuario.nombre;
+      document.getElementById("navUserEmail").textContent = window.usuario.email || "correo@ejemplo.com";
+    }
+
+    // ------- PREMIUM POR USUARIO (SESION) -------
+    function isUserPremium(){
+      return !!(window.usuario && window.usuario.premium === true);
+    }
+    function setUserPremium(val){
+      if (!window.usuario) return;
+      window.usuario = { ...window.usuario, premium: !!val };
+      localStorage.setItem("usuarioActivo", JSON.stringify(window.usuario));
+      refreshPremiumBadge();
+    }
+    function refreshPremiumBadge(){
+      const badge = document.getElementById('premiumBadge');
+      badge.classList.toggle('hidden', !isUserPremium());
+    }
+    refreshPremiumBadge();
+
+    // === Logout ===
+    document.getElementById("logout").addEventListener("click", () => {
+      localStorage.removeItem("usuarioActivo");
+      window.location.href = "login.html";
+    });
+
+    // --- Sidebar responsive (móvil como drawer) ---
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
+    const closeSidebarBtn = document.getElementById("closeSidebar");
+    const overlay = document.getElementById("sidebarOverlay");
+
+    let sidebarOpen = false;
+
+    function openSidebar() {
+      sidebar.classList.remove("-translate-x-full");
+      overlay.classList.remove("hidden", "pointer-events-none", "opacity-0");
+      overlay.classList.add("opacity-100");
+      sidebar.setAttribute("aria-hidden", "false");
+      sidebarOpen = true;
+      document.body.style.overflow = "hidden";
+      menuBtn?.setAttribute("aria-expanded", "true");
+    }
+    function closeSidebar() {
+      sidebar.classList.add("-translate-x-full");
+      overlay.classList.remove("opacity-100");
+      overlay.classList.add("opacity-0");
+      const onFadeEnd = () => {
+        overlay.classList.add("hidden", "pointer-events-none");
+        overlay.removeEventListener("transitionend", onFadeEnd);
+      };
+      overlay.addEventListener("transitionend", onFadeEnd, { once: true });
+      sidebar.setAttribute("aria-hidden", "true");
+      sidebarOpen = false;
+      document.body.style.overflow = "";
+      menuBtn?.setAttribute("aria-expanded", "false");
+    }
+    menuBtn?.addEventListener("click", () => {
+      if (window.matchMedia("(min-width: 768px)").matches) return;
+      sidebarOpen ? closeSidebar() : openSidebar();
+    });
+    closeSidebarBtn?.addEventListener("click", closeSidebar);
+    overlay?.addEventListener("click", closeSidebar);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && sidebarOpen) closeSidebar(); });
+    const mqMd = window.matchMedia("(min-width: 768px)");
+    mqMd.addEventListener?.("change", (e) => {
+      if (e.matches) {
+        sidebar.classList.remove("-translate-x-full");
+        overlay.classList.add("hidden", "pointer-events-none", "opacity-0");
+        overlay.classList.remove("opacity-100");
+        sidebarOpen = false;
+        document.body.style.overflow = "";
+        menuBtn?.setAttribute("aria-expanded", "false");
+      } else {
+        sidebar.classList.add("-translate-x-full");
+        overlay.classList.add("hidden", "pointer-events-none", "opacity-0");
+        overlay.classList.remove("opacity-100");
+        sidebarOpen = false;
+        document.body.style.overflow = "";
+        menuBtn?.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    // === Partículas ===
+    const particleContainer = document.getElementById("particles");
+    const numParticles = 30;
+    for (let i = 0; i < numParticles; i++) {
+      const particle = document.createElement("div");
+      particle.classList.add("particle");
+      const size = Math.random() * 4 + 2;
+      const duration = Math.random() * 10 + 15;
+      const delay = Math.random() * 10;
+      const left = Math.random() * 100;
+      const bottom = Math.random() * 100;
+      const color = bottom > 50
+        ? "rgba(255, 255, 255, 0.8)"
+        : Math.random() > 0.5
+          ? "rgba(233, 165, 14, 0.9)"
+          : (document.documentElement.classList.contains('dark') ? "rgba(150, 200, 255, 0.7)" : "rgba(0, 160, 255, 0.8)");
+      particle.style.background = `radial-gradient(circle, ${color} 0%, transparent 70%)`;
+      particle.style.width = `${size}px`;
+      particle.style.height = `${size}px`;
+      particle.style.left = `${left}%`;
+      particle.style.bottom = `-${Math.random() * 20}px`;
+      particle.style.animationDuration = `${duration}s`;
+      particle.style.animationDelay = `${delay}s`;
+      particleContainer.appendChild(particle);
+    }
+
+    // === Toggle de tema ===
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.toggle('dark');
+      localStorage.setItem('tb-theme', isDark ? 'dark' : 'light');
+      themeToggle.setAttribute('aria-pressed', String(isDark));
+      themeToggle.setAttribute('aria-label', isDark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro');
+    });
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    mq.addEventListener?.('change', e => {
+      if (!localStorage.getItem('tb-theme')) {
+        document.documentElement.classList.toggle('dark', e.matches);
+        themeToggle.setAttribute('aria-pressed', String(e.matches));
+        themeToggle.setAttribute('aria-label', e.matches ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro');
+      }
+    });
+
+    // ======== SPA ========
+    const app = document.getElementById('app');
+    const headerTitleEl = document.getElementById('headerTitle');
+    const sideNav = document.getElementById('sideNav');
+
+    const Card = ({title, body, classes=""}) => `
+      <section class="bg-white/90 dark:bg-slate-900/60 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-white/10 ${classes}">
+        ${title ? `<h3 class="font-poppins text-xl md:text-2xl font-semibold text-[var(--primary)] dark:text-white mb-4">${title}</h3>` : ""}
+        ${body || ""}
+      </section>
+    `;
+
+    // =========== DATA (Bolsa) ===========
+    const OFERTAS = [
+      { id:'1', puesto:'Front-end Intern', empresa:'Kruger Corp', ciudad:'Quito', modalidad:'Híbrido',
+        carreras:['Sistemas','Software','Telemática'], tags:['HTML','CSS','JavaScript','React','Tailwind'],
+        desc:'Apoya en el desarrollo de interfaces para proyectos internos y de clientes, construyendo componentes reutilizables.',
+        req:['Conocimientos básicos de HTML/CSS/JS','Algún framework (React o Vue)','Git básico','Ganas de aprender'],
+        ben:['Mentoría semanal','Ayuda de movilidad','Horario flexible'] },
+      { id:'2', puesto:'Data Analyst Intern', empresa:'Banco Pichincha', ciudad:'Quito', modalidad:'Remoto',
+        carreras:['Datos','Economía','Sistemas'], tags:['SQL','Power BI','Excel','Python','ETL'],
+        desc:'Colabora en el armado de dashboards y monitoreo de KPIs de negocio con fuentes de datos reales.',
+        req:['SQL intermedio','Excel/Sheets','Nociones de BI (Power BI o Looker)','Estadística básica'],
+        ben:['Mentoría de analítica','Beca de cursos','Equipo de trabajo provisto'] },
+      { id:'3', puesto:'Marketing Digital', empresa:'Corporación Favorita', ciudad:'Quito', modalidad:'Presencial',
+        carreras:['Marketing','Comunicación'], tags:['Ads','SEO','Redes','Copywriting'],
+        desc:'Apoyo en campañas de pauta, generación de contenido y análisis de métricas de rendimiento.',
+        req:['Redacción y ortografía','Manejo de redes','Google Analytics básico'],
+        ben:['Almuerzos subsidiados','Capacitaciones internas'] },
+      { id:'4', puesto:'Ingeniero QA', empresa:'CNT EP', ciudad:'Guayaquil', modalidad:'Híbrido',
+        carreras:['Software','Sistemas'], tags:['Testing','Cypress','Jest','QA','API'],
+        desc:'Diseña y ejecuta pruebas funcionales y automatizadas sobre APIs y front.',
+        req:['Conocer tipos de pruebas','Algo de JS','Ganas de automatizar pruebas'],
+        ben:['Mentoría QA','Horario híbrido','Posibilidad de extensión'] },
+      { id:'5', puesto:'Diseño UX/UI', empresa:'NOVA Studio', ciudad:'Cuenca', modalidad:'Remoto',
+        carreras:['Diseño','Multimedia','Sistemas'], tags:['Figma','Prototipado','UX','UI'] },
+      { id:'6', puesto:'Asistente Contable', empresa:'Produbanco', ciudad:'Quito', modalidad:'Presencial',
+        carreras:['Contabilidad','Finanzas','Economía'], tags:['NIIF','Excel','ERP'] },
+      { id:'7', puesto:'Ciencia de Datos', empresa:'Telconet', ciudad:'Guayaquil', modalidad:'Híbrido',
+        carreras:['Datos','Matemática','Sistemas'], tags:['Python','Pandas','ML','SQL'] },
+      { id:'8', puesto:'Enfermería Comunitaria', empresa:'RedSalud', ciudad:'Quito', modalidad:'Presencial',
+        carreras:['Enfermería'], tags:['Atención primaria','Registros','Comunicación'] },
+      { id:'9', puesto:'Arquitectura BIM', empresa:'EcoBuild', ciudad:'Quito', modalidad:'Híbrido',
+        carreras:['Arquitectura','Construcción'], tags:['Revit','BIM','AutoCAD'] },
+      { id:'10', puesto:'Asistente Legal', empresa:'LexAndes', ciudad:'Cuenca', modalidad:'Presencial',
+        carreras:['Derecho'], tags:['Contratos','Investigación','Redacción'] },
+      { id:'11', puesto:'Desarrollador Back-end', empresa:'Cobis', ciudad:'Quito', modalidad:'Híbrido',
+        carreras:['Software','Sistemas'], tags:['Java','Spring','APIs','SQL'] },
+      { id:'12', puesto:'Periodismo Multimedia', empresa:'El Telégrafo', ciudad:'Guayaquil', modalidad:'Remoto',
+        carreras:['Comunicación','Periodismo'], tags:['Redacción','Edición','Video'] },
+    ];
+
+    function getCareerOptions(){
+      const set = new Set();
+      OFERTAS.forEach(o => o.carreras.forEach(c => set.add(c)));
+      return Array.from(set).sort();
+    }
+
+    // =========== VISTAS ===========
+    const viewInicio = () => `
+      <section class="hero p-10 md:p-16 text-center rounded-2xl">
+        <h2 class="text-3xl md:text-5xl font-montserrat font-extrabold mb-3">
+          👋 ¡Hola, ${window.usuario?.nombre || 'Estudiante'}!
+        </h2>
+        <p class="max-w-2xl mx-auto text-white/90 text-lg"> Talent Bridge te da la bienvenida, estudiante de
+          ${(window.usuario?.universidad || 'Tu universidad')}.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+          <a href="#/bolsa" class="bg-white text-[var(--primary)] font-semibold px-8 py-3 rounded-full shadow hover:bg-opacity-90 transition">
+            <i class="fa-solid fa-magnifying-glass"></i> Buscar Pasantías
+          </a>
+          <a href="#/perfil" class="border border-white/40 text-white px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition">
+            <i class="fa-solid fa-user"></i> Ver Perfil
+          </a>
+        </div>
+      </section>
+
+      ${Card({
+        title: "Progreso de Perfil",
+        body: `
+          <p class="text-gray-600 dark:text-gray-300 text-sm mb-2">Tu perfil está completo en un <span id="profileProgressText" class="text-[var(--secondary)] font-semibold">80%</span></p>
+          <div class="progress-bar"><div id="profileProgressBar" class="progress-bar-inner w-[80%]"></div></div>
+        `
+      })}
+
+      <section>
+        <h3 class="text-2xl font-poppins font-semibold text-[var(--primary)] dark:text-white mb-6 text-center md:text-left">Tu Crecimiento Profesional</h3>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="glass-card p-8 text-center">
+            <div class="text-5xl text-[var(--secondary)] mb-3"><i class="fa-solid fa-briefcase"></i></div>
+            <h4 class="font-semibold text-[var(--primary)] dark:text-white mb-1">Pasantías Activas</h4>
+            <p class="metric-value text-4xl text-[var(--primary)] dark:text-white">2</p>
+            <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">En curso y registradas</p>
+          </div>
+
+          <div class="glass-card p-8 text-center">
+            <div class="text-5xl text-[var(--primary)] dark:text-[var(--secondary)] mb-3"><i class="fa-solid fa-certificate"></i></div>
+            <h4 class="font-semibold text-[var(--primary)] dark:text-white mb-1">Certificaciones Logradas</h4>
+            <p class="metric-value text-4xl text-[var(--primary)] dark:text-white">4</p>
+            <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Emitidas y verificadas</p>
+          </div>
+
+          <div class="glass-card p-8 text-center">
+            <div class="text-5xl text-[var(--secondary)] mb-3"><i class="fa-solid fa-building"></i></div>
+            <h4 class="font-semibold text-[var(--primary)] dark:text-white mb-1">Empresas Verificadas</h4>
+            <p class="metric-value text-4xl text-[var(--primary)] dark:text-white">27</p>
+            <p class="text-gray-600 dark:text-gray-300 text-sm mt-1">Con convenios activos</p>
+          </div>
+        </div>
+      </section>
+
+      ${Card({
+        title: "Recomendaciones para Ti",
+        body: `
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="p-6 rounded-xl border border-[color:var(--secondary)]/40 dark:border-white/10 hover:border-[color:var(--secondary)] transition">
+              <h4 class="font-semibold text-[var(--primary)] dark:text-white mb-2">
+                <i class="fa-solid fa-briefcase text-[var(--secondary)]"></i> Nueva Vacante
+              </h4>
+              <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Analista de Datos Junior en <strong>Banco Pichincha</strong>. Modalidad remota y mentoría.</p>
+              <a href="#/bolsa" class="text-[var(--secondary)] font-semibold text-sm hover:underline">Ver más <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+
+            <div class="p-6 rounded-xl border border-[color:var(--primary)]/40 dark:border-white/10 hover:border-[color:var(--primary)] transition">
+              <h4 class="font-semibold text-[var(--primary)] dark:text-white mb-2">
+                <i class="fa-solid fa-certificate text-[var(--primary)] dark:text-[var(--secondary)]"></i> Certificado Disponible
+              </h4>
+              <p class="text-gray-600 dark:text-gray-300 text-sm mb-3">Tu certificación en <strong>Gestión de Proyectos</strong> está lista para descargar.</p>
+              <a href="#/certificados" class="text-[var(--primary)] dark:text-[var(--secondary)] font-semibold text-sm hover:underline">Descargar <i class="fa-solid fa-download"></i></a>
+            </div>
+          </div>
+        `
+      })}
+    `;
+
+    // Bolsa de Pasantías (con filtro + premium por usuario + detalle aplicable a 4 primeras)
+    const viewBolsa = () => {
+      const careers = getCareerOptions();
+      const premium = isUserPremium();
+
+      const filtroUI = `
+        <div class="glass-card p-4">
+          <div class="grid md:grid-cols-4 gap-3 items-end">
+            <div class="md:col-span-2">
+              <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Carrera</label>
+              <select id="filterCareer" class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3">
+                <option value="">Todas</option>
+                ${careers.map(c => `<option value="${c}">${c}</option>`).join('')}
+              </select>
+            </div>
+            <div>
+              <button id="btnApplyFilter" class="w-full rounded-xl bg-[var(--primary)] text-white px-4 py-3"><i class="fa-solid fa-filter"></i> Aplicar</button>
+            </div>
+            <div>
+              <button id="btnAI" class="w-full rounded-xl ${premium ? 'bg-amber-400 text-[var(--primary)] font-bold' : 'bg-gray-200 dark:bg-slate-700 text-gray-700 dark:text-gray-200'} px-4 py-3 flex items-center justify-center gap-2">
+                <i class="fa-solid ${premium ? 'fa-wand-magic-sparkles' : 'fa-lock'}"></i>
+                <span>${premium ? 'Más adecuados para mí (IA)' : 'Más adecuados para mí (IA • Premium)'}</span>
+              </button>
+            </div>
+          </div>
+          ${!premium ? `<p class="mt-2 text-xs text-gray-500 dark:text-gray-400">Función disponible en <strong>Premium</strong>. Prueba ahora y cancela cuando quieras.</p>` : ''}
+        </div>
+      `;
+
+      const grid = `<div id="jobsGrid" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-4"></div>`;
+
+      return `
+        ${Card({ title: 'Bolsa de Pasantías', body: filtroUI })}
+        ${Card({ title: 'Resultados', body: grid, classes: 'mt-4' })}
+      `;
+    };
+
+    // Mis Pasantías
+    const viewPasantias = () => `
+      ${Card({
+        title: "Mis Pasantías",
+        body: `
+          <div class="flex flex-col gap-4">
+            <div class="glass-card p-5">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="font-semibold text-[var(--primary)] dark:text-white">Front-end Intern</h4>
+                  <p class="text-sm text-gray-600 dark:text-gray-300">TechNova · Híbrido · Quito</p>
+                </div>
+                <span class="text-xs px-3 py-1 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-200">Activa</span>
+              </div>
+              <div class="mt-3 text-sm text-gray-600 dark:text-gray-300">Mentoría, stack: Tailwind, Vue/React.</div>
+              <div class="mt-4 flex gap-2">
+                <button class="px-3 py-1 rounded-lg bg-[var(--primary)] text-white text-sm">Ver Detalle</button>
+                <button class="px-3 py-1 rounded-lg border border-[var(--primary)] text-[var(--primary)] dark:border-white dark:text-white text-sm">Actualizar Bitácora</button>
+              </div>
+            </div>
+
+            <div class="glass-card p-5">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="font-semibold text-[var(--primary)] dark:text-white">Data Analyst Intern</h4>
+                  <p class="text-sm text-gray-600 dark:text-gray-300">Grupo Moderna · Remoto</p>
+                </div>
+                <span class="text-xs px-3 py-1 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200">En pausa</span>
+              </div>
+              <div class="mt-3 text-sm text-gray-600 dark:text-gray-300">SQL, dashboards, métricas y QA de datos.</div>
+              <div class="mt-4 flex gap-2">
+                <button class="px-3 py-1 rounded-lg bg-[var(--primary)] text-white text-sm">Ver Detalle</button>
+                <button class="px-3 py-1 rounded-lg border border-[var(--primary)] text-[var(--primary)] dark:border-white dark:text-white text-sm">Enviar Informe</button>
+              </div>
+            </div>
+          </div>
+        `
+      })}
+    `;
+
+    // Certificados
+    const viewCertificados = () => {
+      const tb = [
+        { titulo:"Gestión de Proyectos", emisor:"Talent Bridge", fecha:"2025-02-15", id:"TB-PRJ-2025-001" },
+        { titulo:"Fundamentos de Datos", emisor:"Talent Bridge", fecha:"2024-11-02", id:"TB-DAT-2024-118" },
+      ];
+      const userCerts = loadUserCerts();
+      const tbList = tb.map(c => `
+        <li class="glass-card p-4 flex items-center justify-between">
+          <div>
+            <p class="font-medium text-[var(--primary)] dark:text-white">${c.titulo}</p>
+            <p class="text-sm text-gray-600 dark:text-gray-300">Emisor: ${c.emisor} · Emitido: ${c.fecha} · ID: ${c.id}</p>
+          </div>
+          <a href="#" class="text-[var(--primary)] dark:text-[var(--secondary)] font-semibold text-sm hover:underline">Descargar</a>
+        </li>
+      `).join('');
+
+      const userList = userCerts.length ? userCerts.map(c => `
+        <li class="glass-card p-4 flex items-center justify-between">
+          <div class="min-w-0">
+            <p class="font-medium text-[var(--primary)] dark:text-white truncate">${c.nombre}</p>
+            <p class="text-sm text-gray-600 dark:text-gray-300">Subido: ${new Date(c.fecha).toLocaleString()} · Tipo: ${c.tipo.toUpperCase()}</p>
+          </div>
+          <div class="flex gap-3 shrink-0">
+            ${c.url ? `<a href="${c.url}" target="_blank" class="text-[var(--primary)] dark:text-[var(--secondary)] font-semibold text-sm hover:underline">Ver</a>` : ''}
+            <button data-del="${c.id}" class="text-red-600 dark:text-red-400 text-sm font-semibold hover:underline">Eliminar</button>
+          </div>
+        </li>
+      `).join('') : `<p class="text-sm text-gray-600 dark:text-gray-300">Aún no has subido certificados.</p>`;
+
+      return `
+        ${Card({ title: "Certificados emitidos por Talent Bridge", body: `<ul class="space-y-3">${tbList}</ul>` })}
+        ${Card({
+          title: "Tus certificados",
+          body: `
+            <div class="mb-4">
+              <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Subir certificado (PDF/PNG/JPG)</label>
+              <input id="certFile" type="file" accept=".pdf,.png,.jpg,.jpeg" class="block w-full text-sm file:mr-4 file:py-2 file:px-3 file:rounded-lg file:border-0 file:bg-[var(--primary)] file:text-white hover:file:opacity-90 file:cursor-pointer" />
+              <div class="mt-2 grid gap-2 md:grid-cols-3">
+                <input id="certName" placeholder="Nombre del certificado" class="rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none" />
+                <input id="certIssuer" placeholder="Emisor (opcional)" class="rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none" />
+                <button id="btnAddCert" class="rounded-xl bg-[var(--primary)] text-white px-4 py-2">Agregar</button>
+              </div>
+              <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Los archivos se guardan localmente (demo). Para producción, súbelos a tu backend/almacenamiento.</p>
+            </div>
+            <ul id="userCertList" class="space-y-3">${userList}</ul>
+          `
+        })}
+      `;
+    };
+
+    // Empresas
+    const viewEmpresas = () => `
+      ${Card({
+        title: "Empresas con Convenio",
+        body: `
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            ${[
+              {name:'TechNova', type:'Tecnología', openings: 5},
+              {name:'Grupo Moderna', type:'Alimentos', openings: 2},
+              {name:'FinAndes', type:'Finanzas', openings: 3},
+              {name:'HealthPlus', type:'Salud', openings: 1},
+              {name:'EduSmart', type:'EdTech', openings: 4},
+              {name:'EcoBuild', type:'Construcción', openings: 2},
+            ].map(c => `
+              <div class="glass-card p-5">
+                <h4 class="font-semibold text-[var(--primary)] dark:text-white">${c.name}</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-300">${c.type}</p>
+                <p class="mt-2 text-sm"><span class="font-semibold">${c.openings}</span> vacantes activas</p>
+                <div class="mt-4">
+                  <button class="px-3 py-1 rounded-lg bg-[var(--primary)] text-white text-sm">Ver vacantes</button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `
+      })}
+    `;
+
+    // Perfil + Hoja de Vida
+    const viewPerfil = () => {
+      const perfil = loadPerfilExtra();
+      const cv = loadCV();
+
+      return `
+        ${Card({
+          title: "Mi Perfil",
+          body: `
+            <form class="grid md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Nombre</label>
+                <input id="inpNombre" class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none" />
+              </div>
+              <div>
+                <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Email</label>
+                <input id="inpEmail" type="email" class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none" />
+              </div>
+              <div class="md:col-span-2">
+                <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Universidad</label>
+                <input id="inpUni" class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none" />
+              </div>
+
+              <div class="md:col-span-2 grid md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Titular profesional</label>
+                  <input id="inpHeadline" value="${perfil.headline || ''}" placeholder="Ej: Estudiante de Ing. de Sistemas con enfoque en datos" class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none" />
+                </div>
+                <div>
+                  <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Habilidades (separadas por coma)</label>
+                  <input id="inpSkills" value="${perfil.skills || ''}" placeholder="SQL, Excel, Power BI, Python" class="w-full rounded-xl bg-white/70 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10 p-3 outline-none" />
+                </div>
+              </div>
+
+              <div class="md:col-span-2 flex gap-2">
+                <button type="button" id="btnGuardarPerfil" class="px-4 py-2 rounded-xl bg-[var(--primary)] text-white">Guardar</button>
+                <button type="button" id="btnCancelarPerfil" class="px-4 py-2 rounded-xl border border-[var(--primary)] text-[var(--primary)] dark:border-white dark:text-white">Cancelar</button>
+              </div>
+            </form>
+          `
+        })}
+
+        ${Card({
+          title: "Hoja de Vida (CV)",
+          body: `
+            <div class="grid md:grid-cols-2 gap-4 items-start">
+              <div>
+                <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">Subir CV (PDF/PNG/JPG)</label>
+                <input id="cvFile" type="file" accept=".pdf,.png,.jpg,.jpeg" class="block w-full text-sm file:mr-4 file:py-2 file:px-3 file:rounded-lg file:border-0 file:bg-[var(--primary)] file:text-white hover:file:opacity-90 file:cursor-pointer" />
+                <button id="btnSaveCV" class="mt-3 rounded-xl bg-[var(--primary)] text-white px-4 py-2">Guardar CV</button>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Se almacena localmente (demo). Para producción, súbelo a tu backend.</p>
+              </div>
+              <div class="glass-card p-4">
+                <p class="font-medium mb-1">Estado:</p>
+                ${
+                  cv && cv.filename
+                  ? `
+                    <p class="text-sm text-gray-700 dark:text-gray-200 break-all">Archivo: <strong>${cv.filename}</strong></p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300">Subido: ${new Date(cv.fecha).toLocaleString()}</p>
+                    <div class="mt-3 flex gap-3">
+                      ${cv.url ? `<a href="${cv.url}" target="_blank" class="text-[var(--primary)] dark:text-[var(--secondary)] font-semibold text-sm hover:underline">Ver/Descargar</a>` : ''}
+                      <button id="btnDeleteCV" class="text-red-600 dark:text-red-400 text-sm font-semibold hover:underline">Eliminar</button>
+                    </div>
+                  `
+                  : `<p class="text-sm text-gray-600 dark:text-gray-300">Aún no has subido tu CV.</p>`
+                }
+              </div>
+            </div>
+          `
+        })}
+      `;
+    };
+
+    // Rutas
+    const routes = {
+      '#/inicio':       { title: 'Panel del Estudiante', render: viewInicio },
+      '#/bolsa':        { title: 'Bolsa de Pasantías',   render: viewBolsa },
+      '#/pasantias':    { title: 'Mis Pasantías',        render: viewPasantias },
+      '#/certificados': { title: 'Certificados',         render: viewCertificados },
+      '#/empresas':     { title: 'Empresas',             render: viewEmpresas },
+      '#/perfil':       { title: 'Perfil',               render: viewPerfil },
+    };
+
+    function setActiveLink(hash) {
+      const links = sideNav.querySelectorAll('a[data-route]');
+      links.forEach(a => a.classList.toggle('active', a.getAttribute('data-route') === hash));
+    }
+    function closeSidebarIfMobile() {
+      if (window.matchMedia("(max-width: 767px)").matches) closeSidebar();
+    }
+
+    function renderJobs(list){
+      const grid = document.getElementById('jobsGrid');
+      if (!grid) return;
+      if (!list.length) {
+        grid.innerHTML = `<p class="text-sm text-gray-600 dark:text-gray-300">No encontramos resultados con ese filtro.</p>`;
+        return;
+      }
+      const clickableIds = new Set(['1','2','3','4']);
+      grid.innerHTML = list.map(o => {
+        const clickable = clickableIds.has(o.id);
+        return `
+        <div class="glass-card job-card ${clickable ? 'clickable hover:shadow-md' : ''} p-5" data-jobid="${o.id}">
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <h4 class="font-semibold text-[var(--primary)] dark:text-white">${o.puesto}</h4>
+              <p class="text-sm text-gray-600 dark:text-gray-300">${o.empresa} · ${o.modalidad} · ${o.ciudad}</p>
+            </div>
+            ${typeof o._score === 'number' ? `<span class="text-xs px-2 py-1 rounded-full ${o._score>2?'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200':'bg-gray-100 text-gray-700 dark:bg-white/10 dark:text-gray-200'}">Match ${Math.min(100, Math.round(o._score*20))}%</span>` : ''}
+          </div>
+          <div class="mt-3">
+            <div class="flex flex-wrap gap-2">
+              ${o.tags.map(t => `<span class="text-xs px-2 py-1 rounded-full bg-white/60 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10">${t}</span>`).join('')}
+            </div>
+            <p class="text-xs mt-2 text-gray-600 dark:text-gray-300">Carreras: ${o.carreras.join(', ')}</p>
+          </div>
+          <div class="mt-4 flex gap-2">
+            <button class="btn-postular px-3 py-1 rounded-lg bg-[var(--primary)] text-white text-sm" data-jobid="${o.id}">Postular</button>
+            ${clickable ? `<button class="btn-detalle px-3 py-1 rounded-lg border border-[var(--primary)] text-[var(--primary)] dark:border-white dark:text-white text-sm" data-jobid="${o.id}">Ver Detalle</button>` : `<button disabled class="px-3 py-1 rounded-lg border border-gray-300 text-gray-400 text-sm">Ver Detalle</button>`}
+          </div>
+        </div>
+      `}).join('');
+    }
+
+    function computeAffinity(offer){
+      const extra = loadPerfilExtra() || {};
+      const skills = String(extra.skills||'').toLowerCase().split(',').map(s=>s.trim()).filter(Boolean);
+      const head   = String(extra.headline||'').toLowerCase();
+      let score = 0;
+      offer.tags.forEach(t => { if (skills.includes(t.toLowerCase())) score += 1; });
+      offer.carreras.forEach(c => { if (head.includes(c.toLowerCase())) score += 0.5; });
+      if (offer.modalidad !== 'Presencial') score += 0.5;
+      return score;
+    }
+
+    function router() {
+      const hash = location.hash || '#/inicio';
+      const route = routes[hash] || routes['#/inicio'];
+      headerTitleEl.textContent = route.title;
+      app.innerHTML = route.render();
+      refreshPremiumBadge();
+
+      // progreso dinámico en Inicio
+      if (hash === '#/inicio') {
+        const progress = Math.floor(Math.random() * 21) + 80;
+        const txt = document.getElementById('profileProgressText');
+        const bar = document.getElementById('profileProgressBar');
+        if (txt && bar) { txt.textContent = progress + '%'; bar.style.width = progress + '%'; }
+      }
+
+      // Bolsa: preparar filtros y render + eventos de detalle/postulación
+      if (hash === '#/bolsa') {
+        let current = [...OFERTAS];
+
+        const applyFilter = () => {
+          const val = (document.getElementById('filterCareer').value || '').trim();
+          current = OFERTAS.filter(o => !val || o.carreras.includes(val));
+          renderJobs(current);
+          wireJobsGridHandlers(); // re-wire after render
+        };
+
+        document.getElementById('btnApplyFilter').addEventListener('click', applyFilter);
+        const btnAI = document.getElementById('btnAI');
+        btnAI.addEventListener('click', () => {
+          if (!isUserPremium()) { openPaywall(); return; }
+          const scored = current.map(o => ({...o, _score: computeAffinity(o)}))
+                                .sort((a,b) => (b._score||0) - (a._score||0));
+          renderJobs(scored);
+          wireJobsGridHandlers();
+        });
+
+        // primera carga
+        applyFilter();
+      }
+
+      // Perfil
+      if (hash === '#/perfil' && window.usuario) {
+        document.getElementById('inpNombre').value = window.usuario.nombre || '';
+        document.getElementById('inpEmail').value  = window.usuario.email || '';
+        document.getElementById('inpUni').value    = window.usuario.universidad || '';
+
+        document.getElementById('btnGuardarPerfil').onclick = () => {
+          const updated = {
+            ...window.usuario,
+            nombre: document.getElementById('inpNombre').value.trim(),
+            email: document.getElementById('inpEmail').value.trim(),
+            universidad: document.getElementById('inpUni').value.trim(),
+          };
+          localStorage.setItem('usuarioActivo', JSON.stringify(updated));
+          window.usuario = updated;
+          document.getElementById("navUserName").textContent = updated.nombre || '';
+          document.getElementById("navUserEmail").textContent = updated.email || '';
+          const extra = {
+            headline: document.getElementById('inpHeadline').value.trim(),
+            skills: document.getElementById('inpSkills').value.trim()
+          };
+          savePerfilExtra(extra);
+          alert('Perfil actualizado ✔');
+        };
+        document.getElementById('btnCancelarPerfil').onclick = () => router();
+
+        // CV handlers
+        const btnSaveCV = document.getElementById('btnSaveCV');
+        const btnDeleteCV = document.getElementById('btnDeleteCV');
+        btnSaveCV?.addEventListener('click', async () => {
+          const file = document.getElementById('cvFile').files[0];
+          if (!file) { alert('Selecciona un archivo de CV.'); return; }
+          if (!/pdf|png|jpe?g$/i.test(file.type)) { alert('Formato no soportado. Usa PDF/PNG/JPG.'); return; }
+          const url = await fileToDataURL(file);
+          saveCV({ filename: file.name, url, fecha: Date.now() });
+          router();
+        });
+        btnDeleteCV?.addEventListener('click', () => { deleteCV(); router(); });
+      }
+
+      // Certificados: handlers
+      if (hash === '#/certificados') {
+        const btnAdd = document.getElementById('btnAddCert');
+        const list = document.getElementById('userCertList');
+        btnAdd?.addEventListener('click', async () => {
+          const file = document.getElementById('certFile').files[0];
+          const name = (document.getElementById('certName').value || '').trim();
+          const issuer = (document.getElementById('certIssuer').value || '').trim();
+          if (!file) { alert('Selecciona un archivo.'); return; }
+          if (!/pdf|png|jpe?g$/i.test(file.type)) { alert('Formato no soportado. Usa PDF/PNG/JPG.'); return; }
+          const url = await fileToDataURL(file);
+          const cert = {
+            id: crypto.randomUUID?.() || String(Date.now()),
+            nombre: name || file.name,
+            emisor: issuer || 'Usuario',
+            fecha: Date.now(),
+            tipo: file.type.includes('pdf') ? 'pdf' : 'img',
+            url
+          };
+          const all = loadUserCerts();
+          all.unshift(cert);
+          saveUserCerts(all);
+          router();
+        });
+        list?.addEventListener('click', (e) => {
+          const btn = e.target.closest('button[data-del]');
+          if (!btn) return;
+          const id = btn.getAttribute('data-del');
+          const all = loadUserCerts().filter(c => c.id !== id);
+          saveUserCerts(all);
+          router();
+        });
+      }
+
+      setActiveLink(hash);
+      closeSidebarIfMobile();
+    }
+
+    // Enlaces del sideNav: cerrar drawer en móvil
+    sideNav.addEventListener('click', (e) => {
+      const a = e.target.closest('a[data-route]');
+      if (a && window.matchMedia("(max-width: 767px)").matches) closeSidebar();
+    });
+
+    window.addEventListener('hashchange', router);
+    window.addEventListener('load', () => {
+      if (!location.hash) location.hash = '#/inicio';
+      router();
+    });
+
+    // ===== Paywall helpers =====
+    const paywallEl = document.getElementById('paywall');
+    function openPaywall(){ paywallEl.classList.remove('hidden'); }
+    function closePaywall(){ paywallEl.classList.add('hidden'); }
+    document.getElementById('paywallClose').addEventListener('click', closePaywall);
+    document.getElementById('paywallLater').addEventListener('click', closePaywall);
+    document.getElementById('paywallActivate').addEventListener('click', () => {
+      setUserPremium(true);
+      closePaywall();
+      if (location.hash === '#/bolsa') router();
+    });
+
+    // ======= Modal Detalle de Pasantía =======
+    const jobModal = document.getElementById('jobModal');
+    const jobModalOverlay = document.getElementById('jobModalOverlay');
+    const jobModalClose = document.getElementById('jobModalClose');
+    const jobModalCancel = document.getElementById('jobModalCancel');
+    const jobModalTitle = document.getElementById('jobModalTitle');
+    const jobModalSub = document.getElementById('jobModalSub');
+    const jobModalTags = document.getElementById('jobModalTags');
+    const jobModalDesc = document.getElementById('jobModalDesc');
+    const jobModalReq = document.getElementById('jobModalReq');
+    const jobModalBen = document.getElementById('jobModalBen');
+    const jobModalApply = document.getElementById('jobModalApply');
+    const jobModalMsg = document.getElementById('jobModalMsg');
+    let jobModalCurrentId = null;
+
+    function openJobModal(offerId){
+      const offer = OFERTAS.find(o => o.id === offerId);
+      if (!offer) return;
+      jobModalCurrentId = offerId;
+
+      jobModalTitle.textContent = offer.puesto;
+      jobModalSub.textContent = `${offer.empresa} · ${offer.modalidad} · ${offer.ciudad}`;
+      jobModalTags.innerHTML = offer.tags.map(t=>`<span class="text-xs px-2 py-1 rounded-full bg-white/60 dark:bg-slate-800/60 border border-gray-200 dark:border-white/10">${t}</span>`).join('');
+      jobModalDesc.textContent = offer.desc || 'Descripción no disponible para esta oferta.';
+      jobModalReq.innerHTML = (offer.req||['Requisitos no disponibles.']).map(r=>`<li>${r}</li>`).join('');
+      jobModalBen.innerHTML = (offer.ben||['Beneficios no disponibles.']).map(b=>`<li>${b}</li>`).join('');
+      jobModalMsg.classList.add('hidden');
+      jobModalMsg.textContent = '';
+
+      // Estado de postulación
+      const applied = hasApplied(offerId);
+      jobModalApply.disabled = applied;
+      jobModalApply.classList.toggle('opacity-60', applied);
+      jobModalApply.textContent = applied ? 'Ya postulaste' : 'Postular';
+
+      jobModal.classList.remove('hidden');
+    }
+    function closeJobModal(){ jobModal.classList.add('hidden'); jobModalCurrentId = null; }
+    jobModalOverlay.addEventListener('click', closeJobModal);
+    jobModalClose.addEventListener('click', closeJobModal);
+    jobModalCancel.addEventListener('click', closeJobModal);
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && !jobModal.classList.contains('hidden')) closeJobModal(); });
+
+    jobModalApply.addEventListener('click', () => {
+      if (!jobModalCurrentId) return;
+      saveApplication(jobModalCurrentId);
+      jobModalApply.disabled = true;
+      jobModalApply.classList.add('opacity-60');
+      jobModalApply.textContent = 'Postulación enviada';
+      jobModalMsg.classList.remove('hidden');
+      jobModalMsg.textContent = '🎉 ¡Tu postulación fue registrada! Te contactaremos si avanzas a la siguiente etapa.';
+      jobModalMsg.classList.add('text-emerald-700','dark:text-emerald-300');
+    });
+
+    function wireJobsGridHandlers(){
+      const grid = document.getElementById('jobsGrid');
+      if (!grid) return;
+
+      // Click en tarjeta (primeras 4)
+      grid.addEventListener('click', (e) => {
+        const btnDetalle = e.target.closest('.btn-detalle');
+        const btnPost = e.target.closest('.btn-postular');
+        const card = e.target.closest('.job-card');
+
+        // Postular directo desde la tarjeta
+        if (btnPost) {
+          const id = btnPost.getAttribute('data-jobid');
+          // Si es una de las primeras 4, abrimos modal para experiencia completa
+          if (['1','2','3','4'].includes(id)) {
+            openJobModal(id);
+          } else {
+            // Simulación rápida
+            saveApplication(id);
+            btnPost.disabled = true;
+            btnPost.textContent = 'Postulación enviada';
+          }
+          return;
+        }
+
+        // Ver Detalle (solo primeras 4)
+        if (btnDetalle) {
+          const id = btnDetalle.getAttribute('data-jobid');
+          if (['1','2','3','4'].includes(id)) openJobModal(id);
+          return;
+        }
+
+        // Click en la tarjeta completa para primeras 4
+        if (card && ['1','2','3','4'].includes(card.getAttribute('data-jobid'))) {
+          // Evitar abrir si se hizo click en un botón dentro
+          if (e.target.closest('button')) return;
+          openJobModal(card.getAttribute('data-jobid'));
+        }
+      });
+    }
+
+    // ===== Postulaciones por usuario =====
+    function appsKey(){
+      const id = window.usuario?.email || window.usuario?.nombre || 'default';
+      return `postulaciones_${id}`;
+    }
+    function loadApplications(){
+      try { return JSON.parse(localStorage.getItem(appsKey())||'[]'); } catch { return []; }
+    }
+    function saveApplications(list){
+      localStorage.setItem(appsKey(), JSON.stringify(list||[]));
+    }
+    function hasApplied(jobId){
+      return loadApplications().includes(jobId);
+    }
+    function saveApplication(jobId){
+      const list = loadApplications();
+      if (!list.includes(jobId)) {
+        list.push(jobId);
+        saveApplications(list);
+      }
+    }
+
+    // ===== Helpers almacenamiento =====
+    function savePerfilExtra(data){ localStorage.setItem('usuarioPerfilExtra', JSON.stringify(data||{})); }
+    function loadPerfilExtra(){ try { return JSON.parse(localStorage.getItem('usuarioPerfilExtra')||'{}'); } catch { return {}; } }
+
+    function saveCV(cv){ localStorage.setItem('usuarioCV', JSON.stringify(cv||{})); }
+    function loadCV(){ try { return JSON.parse(localStorage.getItem('usuarioCV')||'null'); } catch { return null; } }
+    function deleteCV(){ localStorage.removeItem('usuarioCV'); }
+
+    function saveUserCerts(list){ localStorage.setItem('usuarioCerts', JSON.stringify(list||[])); }
+    function loadUserCerts(){ try { return JSON.parse(localStorage.getItem('usuarioCerts')||'[]'); } catch { return []; } }
+
+    function fileToDataURL(file){
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = e => resolve(e.target.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+  </script>
+</body>
+</html>
